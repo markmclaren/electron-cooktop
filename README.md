@@ -1,3 +1,33 @@
+
+# XML Cooktop - Electron Edition
+
+**Experimental Project Disclaimer**
+
+This project is an experiment and is provided strictly as-is for personal, educational, or research use. It is not suitable for commercial use without purchasing the appropriate licenses from Saxonica for SaxonJS and xslt3. See the Saxonica licensing terms for details: https://www.saxonica.com/license/index.xml
+
+
+## Technology Overview & Mechanisms
+
+### Formatting
+XML and XSLT documents are formatted using the `xml-formatter` library, which is bundled for browser use via webpack. This ensures fast, client-side formatting with proper indentation and line breaks.
+
+### Validation
+XML validation is performed using `fast-xml-parser`, providing real-time error detection and line/column reporting. Validation errors are highlighted in the Monaco Editor for immediate feedback.
+
+### Transformation
+XSLT 3.0 transformations are handled by SaxonJS (`saxon-js` npm package) and the `xslt3` CLI/compiler. At runtime, XSLT stylesheets are compiled to SEF (Stylesheet Export File) using xslt3, and then executed in-process with SaxonJS. This enables robust, standards-compliant XSLT 3.0 support without requiring Java.
+
+#### Mechanism Summary
+- **Formatting:** `xml-formatter` (bundled via webpack)
+- **Validation:** `fast-xml-parser` (real-time, with Monaco highlighting)
+- **Transformation:** `saxon-js` + `xslt3` (XSLT 3.0, SEF compilation at runtime)
+
+## Saxonica & SaxonJS Licensing
+
+This application uses SaxonJS and xslt3 from Saxonica Limited for XSLT 3.0 transformation. SaxonJS is free for non-commercial use, but commercial use may require a license. Please review the [Saxonica licensing terms](https://www.saxonica.com/license/index.xml) and [SaxonJS documentation](https://www.saxonica.com/saxon-js/documentation/index.html) before distributing or using this application commercially.
+
+**Full credit to Saxonica Limited for SaxonJS and xslt3.**
+
 # XML Cooktop - Electron Edition
 
 A faithful recreation of the original XML Cooktop application by Victor Pavlov, built with modern web technologies for cross-platform compatibility. This Electron-based version preserves the iconic multi-pane "cooktop" interface that made the original application so powerful for XML and XSLT development.
@@ -34,14 +64,16 @@ This layout allows you to work with XML, XSLT, and see results simultaneously - 
 - **Quick Insertion**: Click to insert templates at cursor position
 - **Hierarchical Organization**: Templates organized in expandable folders
 
+
 ### XSLT Processing Engine
-- **JavaScript XSLT Processor**: Pure JavaScript implementation for cross-platform compatibility
+- **SaxonJS XSLT 3.0 Processor**: Modern, standards-compliant XSLT engine (see above)
 - **Multiple Output Options**: 
   - View results in the result pane
   - Preview HTML in integrated browser
   - Save results to file
   - Open results in default browser
 - **Error Reporting**: Detailed error messages for XSLT transformation issues
+
 
 ## Installation
 
@@ -132,8 +164,9 @@ This Electron version faithfully recreates the core functionality of the origina
 |-----------|------------|---------|
 | Application Framework | Electron | Cross-platform desktop application |
 | Code Editor | Monaco Editor | Professional XML/XSLT editing |
-| XSLT Processor | xslt-processor (npm) | JavaScript XSLT 1.0 implementation |
-| XML Parser | xml2js | XML parsing and validation |
+| XSLT Processor | SaxonJS + xslt3 | XSLT 3.0 transformation (SEF, Saxonica) |
+| XML Validator | fast-xml-parser | XML validation and error reporting |
+| Formatter | xml-formatter | XML/XSLT formatting (bundled via webpack) |
 | UI Styling | CSS3 | Modern interface design |
 | File Operations | Node.js fs-extra | Enhanced file system operations |
 
@@ -192,10 +225,11 @@ Templates are stored in `assets/templates.json`. To add new templates:
 | File Support | XML, XSL, DTD, HTML | Same formats |
 | XPath Console | Built-in | Built-in (enhanced) |
 
+
 ## Known Limitations
 
-- **XSLT Version**: Currently supports XSLT 1.0 (JavaScript implementation limitation)
-- **XPath Features**: Some advanced XPath 2.0+ functions not available
+- **XSLT Version**: Now supports XSLT 3.0 via SaxonJS and xslt3 (see above)
+- **XPath Features**: Some advanced XPath 3.0 features may have limitations (see SaxonJS docs)
 - **External Tools**: Tool integration requires platform-specific configuration
 - **Performance**: Large documents may be slower than native implementations
 
@@ -218,7 +252,7 @@ MIT License - see LICENSE file for details.
 - **Victor Pavlov**: Creator of the original XML Cooktop application
 - **Original XML Cooktop Community**: For years of feedback and feature requests
 - **Monaco Editor Team**: For the excellent code editor component
-- **xslt-processor Contributors**: For the JavaScript XSLT implementation
+- **Saxonica Limited**: For SaxonJS and xslt3 (XSLT 3.0 transformation)
 - **Electron Team**: For making cross-platform desktop apps accessible
 
 ## Support

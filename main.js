@@ -1,8 +1,6 @@
 const { app, BrowserWindow, Menu, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs-extra');
-const { Xslt, XmlParser } = require('xslt-processor');
-const xml2js = require('xml2js');
 const chokidar = require('chokidar');
 
 // Keep a global reference of the window object
@@ -202,16 +200,37 @@ ipcMain.handle('save-file-dialog', async (event, defaultPath) => {
 // XSLT transformation handler
 ipcMain.handle('transform-xslt', async (event, xmlContent, xslContent) => {
   try {
-    const xslt = new Xslt();
-    const xmlParser = new XmlParser();
-    
-    const xmlDoc = xmlParser.xmlParse(xmlContent);
-    const xslDoc = xmlParser.xmlParse(xslContent);
-    
-    const result = await xslt.xsltProcess(xmlDoc, xslDoc);
-    return { success: true, result };
+    const SaxonJS = require('saxon-js');
+    const { execSync } = require('child_process');
+    const fs = require('fs');
+    const tmp = require('os').tmpdir();
+    const path = require('path');
+
+    // Write XSLT to temp file
+    const xslPath = path.join(tmp, `temp-xslt-${Date.now()}.xsl`);
+    fs.writeFileSync(xslPath, xslContent, 'utf8');
+    // Write dummy XML to temp file
+    const dummyXmlPath = path.join(tmp, `temp-dummy-${Date.now()}.xml`);
+    fs.writeFileSync(dummyXmlPath, '<root/>', 'utf8');
+    // Compile XSLT to SEF using xslt3 CLI, supplying dummy XML
+    const sefPath = path.join(tmp, `temp-sef-${Date.now()}.json`);
+    execSync(`npx xslt3 -xsl:${xslPath} -s:${dummyXmlPath} -export:${sefPath}`);
+    const sef = JSON.parse(fs.readFileSync(sefPath, 'utf8'));
+
+    // Transform XML using SaxonJS
+    const result = await SaxonJS.transform({
+      stylesheetInternal: sef,
+      sourceText: xmlContent,
+      destination: 'serialized'
+    }, 'async');
+    // Clean up temp files
+    fs.unlinkSync(xslPath);
+    fs.unlinkSync(sefPath);
+    fs.unlinkSync(dummyXmlPath);
+    return { success: true, result: result.principalResult };
   } catch (error) {
-    return { success: false, error: error.message };
+    console.error('XSLT transformation error:', error);
+    return { success: false, error: error && error.stack ? error.stack : (error && error.message ? error.message : String(error)) };
   }
 });
 

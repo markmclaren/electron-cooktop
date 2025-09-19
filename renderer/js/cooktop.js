@@ -807,7 +807,7 @@ class XMLCooktop {
             position.lineNumber,
             position.column
           ),
-          text: content,
+          text: templateContent,
         },
       ]);
       currentEditor.focus();

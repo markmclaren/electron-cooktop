@@ -63,8 +63,8 @@
   "chokidar": "^4.0.3",
   "fast-xml-parser": "^5.2.5",
   "fs-extra": "^11.3.2",
+  "saxon-js": "^2.7.0",
   "xml-formatter": "^3.6.7",
-  "xml2js": "^0.6.2",
-  "xslt-processor": "^3.3.1"
+  "xslt3": "^2.7.0"
   }
 }
