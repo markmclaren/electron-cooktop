@@ -218,9 +218,36 @@ ipcMain.handle('transform-xslt', async (event, xmlContent, xslContent) => {
 // XML validation handler
 ipcMain.handle('validate-xml', async (event, xmlContent) => {
   try {
-    const parser = new xml2js.Parser();
-    await parser.parseStringPromise(xmlContent);
-    return { success: true, valid: true };
+    const { XMLValidator } = require('fast-xml-parser');
+    const result = XMLValidator.validate(xmlContent, { allowBooleanAttributes: true });
+    if (result === true) {
+      return { success: true, valid: true };
+    } else {
+      // result is an object with error details
+      let line = 1, col = 1;
+      if (result.err) {
+        // console.log('fast-xml-parser error object:', result.err);
+        if (typeof result.err.line === 'number' && typeof result.err.col === 'number') {
+          line = result.err.line;
+          col = result.err.col;
+        } else if (result.err.linePos && typeof result.err.linePos.line === 'number') {
+          line = result.err.linePos.line;
+          col = result.err.linePos.col || 1;
+        } else if (typeof result.err.col === 'number') {
+          // Map error position to line number
+          const uptoError = xmlContent.slice(0, result.err.col);
+          line = uptoError.split(/\r?\n/).length;
+          col = result.err.col;
+        }
+      }
+      return {
+        success: false,
+        valid: false,
+        error: result.err.msg + ` (line ${line}, col ${col})`,
+        line,
+        col
+      };
+    }
   } catch (error) {
     return { success: false, valid: false, error: error.message };
   }

@@ -648,6 +648,11 @@ class XMLCooktop {
       const content = currentEditor.getValue();
       const result = await window.electronAPI.validateXML(content);
 
+      // Remove previous error markers
+      const model = currentEditor ? currentEditor.getModel() : null;
+      if (model && window.monaco) {
+        window.monaco.editor.setModelMarkers(model, 'xml', []);
+      }
       if (result.success) {
         if (result.valid) {
           this.updateStatus("XML is valid and well-formed");
@@ -656,10 +661,42 @@ class XMLCooktop {
             "The XML document is well-formed and valid."
           );
         } else {
-          this.showError("Validation Failed", result.error);
+          let errorMsg = result.error;
+          if (typeof result.line === 'number' && typeof result.col === 'number') {
+            // errorMsg += `\n(Line ${result.line}, Column ${result.col})`;
+            // Highlight error in editor
+            const model = currentEditor.getModel();
+            if (model && window.monaco) {
+              window.monaco.editor.setModelMarkers(model, 'xml', [{
+                startLineNumber: result.line,
+                endLineNumber: result.line,
+                startColumn: result.col,
+                endColumn: result.col + 1,
+                message: result.error,
+                severity: window.monaco.MarkerSeverity.Error
+              }]);
+            }
+          }
+          this.showError("Validation Failed", errorMsg);
         }
       } else {
-        this.showError("Validation Error", result.error);
+        let errorMsg = result.error;
+        if (typeof result.line === 'number' && typeof result.col === 'number') {
+          // errorMsg += `\n(Line ${result.line}, Column ${result.col})`;
+          // Highlight error in editor
+          const model = currentEditor.getModel();
+          if (model && window.monaco) {
+            window.monaco.editor.setModelMarkers(model, 'xml', [{
+              startLineNumber: result.line,
+              endLineNumber: result.line,
+              startColumn: result.col,
+              endColumn: result.col + 1,
+              message: result.error,
+              severity: window.monaco.MarkerSeverity.Error
+            }]);
+          }
+        }
+        this.showError("Validation Error", errorMsg);
       }
     } catch (error) {
       this.showError("Error validating XML", error.message);
@@ -674,17 +711,45 @@ class XMLCooktop {
       if (this.currentPane === "result" && wasReadOnly) {
         currentEditor.updateOptions({ readOnly: false });
       }
-      // Use vkBeautify for XML and XSL formatting
-      if (window.vkbeautify && (this.currentPane === "source" || this.currentPane === "stylesheet" || this.currentPane === "result")) {
-        const content = currentEditor.getValue();
-        const formatted = window.vkbeautify.xml(content, '  ');
-        currentEditor.setValue(formatted);
-        this.updateStatus(`${this.currentPane} formatted`);
-      } else {
-        // Fallback: try Monaco's formatter if available
+      // Use Prettier for XML and XSL formatting
+      const content = currentEditor.getValue();
+      let formatted = content;
+      try {
+        if (window.xmlFormatter) {
+          console.log('xml-formatter is loaded, attempting to format...');
+          const before = content;
+          // Use xml-formatter for XML and XSL files
+          const options = {
+            indentation: '  ',
+            collapseContent: true,
+            lineSeparator: '\n',
+            stripComments: false
+          };
+          let result;
+          try {
+            result = window.xmlFormatter(content, options);
+          } catch (e) {
+            console.error('xml-formatter error:', e);
+            this.updateStatus(`${this.currentPane} formatting error: ${e.message}`);
+            return;
+          }
+          console.log('xml-formatter output:', result);
+          if (before === result) {
+            this.updateStatus(`${this.currentPane} formatted (no changes by xml-formatter)`);
+          } else {
+            this.updateStatus(`${this.currentPane} formatted with xml-formatter`);
+          }
+          currentEditor.setValue(result);
+        } else {
+          this.updateStatus('xml-formatter not loaded');
+          throw new Error("xml-formatter not loaded");
+        }
+      } catch (e) {
+        console.error('xml-formatter formatting error:', e);
         currentEditor.getAction("editor.action.formatDocument").run();
-        this.updateStatus(`${this.currentPane} formatted`);
+        this.updateStatus(`${this.currentPane} formatted (fallback)`);
       }
+  // Remove duplicate setValue; already set above after formatting
       // Restore read-only state for result pane
       if (this.currentPane === "result" && wasReadOnly) {
         currentEditor.updateOptions({ readOnly: true });
@@ -725,23 +790,13 @@ class XMLCooktop {
       if (this.currentPane === "result" && wasReadOnly) {
         currentEditor.updateOptions({ readOnly: false });
       }
-      // Use vkBeautify for XML and XSL formatting
-      if (window.vkbeautify && (this.currentPane === "source" || this.currentPane === "stylesheet" || this.currentPane === "result")) {
-        const content = currentEditor.getValue();
-        const formatted = window.vkbeautify.xml(content, '  ');
-        currentEditor.setValue(formatted);
-        this.updateStatus(`${this.currentPane} formatted`);
-      } else {
-        // Fallback: try Monaco's formatter if available
-        currentEditor.getAction("editor.action.formatDocument").run();
-        this.updateStatus(`${this.currentPane} formatted`);
-      }
+      // ...existing code...
       // Restore read-only state for result pane
       if (this.currentPane === "result" && wasReadOnly) {
         currentEditor.updateOptions({ readOnly: true });
       }
       // Insert template content at current cursor position
-      const content = template.content || "";
+      const templateContent = template.content || "";
       const selection = currentEditor.getSelection();
       const position = selection ? selection.getStartPosition() : currentEditor.getPosition();
       currentEditor.executeEdits("insert-template", [
