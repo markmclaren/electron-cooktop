@@ -1,0 +1,56 @@
+{
+  "name": "electron-cooktop",
+  "version": "1.0.0",
+  "description": "A modern, cross-platform XML editor based on the original XML Cooktop",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "NODE_ENV=development electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+  "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.xmlcooktop.electron",
+    "productName": "XML Cooktop Electron Edition",
+    "directories": {
+      "buildResources": "assets"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": ["dmg", "zip"]
+    },
+    "win": {
+      "target": ["nsis", "zip"]
+    },
+    "linux": {
+      "target": ["AppImage", "deb", "zip"]
+    }
+  },
+  "keywords": [
+    "xml",
+    "editor",
+    "xslt",
+    "dtd",
+    "cross-platform",
+    "electron"
+  ],
+  "author": "Manus AI",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^38.1.2",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "fs-extra": "^11.3.2",
+    "xml2js": "^0.6.2",
+    "xslt-processor": "^3.3.1"
+  }
+}

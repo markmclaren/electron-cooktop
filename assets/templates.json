@@ -1,0 +1,639 @@
+{
+  "folders": [
+    {
+      "name": "DTD / DOCTYPE",
+      "templates": [
+        {
+          "name": "SYSTEM",
+          "content": "<!DOCTYPE top-element SYSTEM \"*.dtd\" >"
+        },
+        {
+          "name": "PUBLIC",
+          "content": "<!DOCTYPE top-element PUBLIC \"*.dtd\" >"
+        },
+        {
+          "name": "LOCAL",
+          "content": "\r\n<!DOCTYPE top-element [\r\n\r\n\telement lists\r\n\t\r\n]> "
+        }
+      ]
+    },
+    {
+      "name": "DTD / quantity operator",
+      "templates": [
+        {
+          "name": "one or more (+)",
+          "content": "+"
+        },
+        {
+          "name": "zero or more (*)",
+          "content": "*"
+        },
+        {
+          "name": "zero or once (?)",
+          "content": "?"
+        }
+      ]
+    },
+    {
+      "name": "DTD / ELEMENT Types",
+      "templates": [
+        {
+          "name": "text",
+          "content": " #PCDATA "
+        },
+        {
+          "name": "empty",
+          "content": " EMPTY "
+        },
+        {
+          "name": "any",
+          "content": " ANY "
+        },
+        {
+          "name": "list of children",
+          "content": "  ( | | | ) "
+        },
+        {
+          "name": "PCData",
+          "content": "#PCDATA"
+        }
+      ]
+    },
+    {
+      "name": "DTD / Modifiers",
+      "templates": [
+        {
+          "name": "CData",
+          "content": "CDATA"
+        },
+        {
+          "name": "Required",
+          "content": " #REQUIRED "
+        },
+        {
+          "name": "Implied",
+          "content": " #IMPLIED "
+        },
+        {
+          "name": "Fixed",
+          "content": " #FIXED "
+        },
+        {
+          "name": "Id",
+          "content": " ID  "
+        },
+        {
+          "name": "Idref",
+          "content": " IDREF "
+        },
+        {
+          "name": "Idrefs",
+          "content": " IDREFS "
+        },
+        {
+          "name": "Notation",
+          "content": " #NOTATION "
+        },
+        {
+          "name": "NMTOKEN",
+          "content": " NMTOKEN  "
+        },
+        {
+          "name": "NMTOKENS",
+          "content": " NMTOKEN  "
+        },
+        {
+          "name": "ENTITY (attr)",
+          "content": " ENTITY  "
+        },
+        {
+          "name": "ENTITIES (attr)",
+          "content": " ENTITIES "
+        },
+        {
+          "name": "list of values",
+          "content": " ( | | |)  "
+        }
+      ]
+    },
+    {
+      "name": "DTD / Entities modifiers",
+      "templates": [
+        {
+          "name": "Include",
+          "content": " 'INCLUDE' "
+        },
+        {
+          "name": "Ignore",
+          "content": " 'IGNORE' "
+        }
+      ]
+    },
+    {
+      "name": "DTD",
+      "templates": [
+        {
+          "name": "ENTITY",
+          "content": "<!ENTITY name >\r\n"
+        },
+        {
+          "name": "ENTITY (parameter)",
+          "content": "<!ENTITY % name >\r\n\t\t"
+        },
+        {
+          "name": "ELEMENT",
+          "content": "<!ELEMENT name ( list of ellements ) >\r\n"
+        },
+        {
+          "name": "ATTLIST",
+          "content": "<!ATTLIST name \r\n\r\n\tattr. list\r\n>\r\n"
+        },
+        {
+          "name": "NOTATION",
+          "content": "<!NOTATION name   >\r\n"
+        },
+        {
+          "name": "Name Data",
+          "content": " NDATA "
+        }
+      ]
+    },
+    {
+      "name": "XSLT Elements",
+      "templates": [
+        {
+          "name": "value-of",
+          "content": "<xsl:value-of select=\""
+        },
+        {
+          "name": "value-of with escape clause",
+          "content": "<xsl:value-of disable-output-escaping=\"yes\" select=\""
+        },
+        {
+          "name": "template - full",
+          "content": "\r\n<xsl:template name=\"\" match=\"/\">\r\n"
+        },
+        {
+          "name": "template - named",
+          "content": "\r\n<xsl:template name=\"\">\r\n"
+        },
+        {
+          "name": "template - default",
+          "content": "\r\n<xsl:template match=\"/\">\r\n"
+        },
+        {
+          "name": "attribute",
+          "content": "\r\n<xsl:attribute  name = \"\" >\r\n"
+        },
+        {
+          "name": "attribute-set",
+          "content": "\r\n<xsl:attribute-set name = \"\">\r\n"
+        },
+        {
+          "name": "call-template with param",
+          "content": "\r\n<xsl:call-template name = \"\" >\r\n\t<xsl:with-param name=\"tabname\">"
+        },
+        {
+          "name": "choose",
+          "content": "\r\n\t\t\t\t\r\n<xsl:choose>\r\n\t<xsl:when test=\"\">\r\n\t\r\n\t\t\t"
+        },
+        {
+          "name": "comment",
+          "content": "\r\n<xsl:comment>\r\n"
+        },
+        {
+          "name": "copy",
+          "content": "\r\n\t\t\t\t\r\n<xsl:copy>\r\n"
+        },
+        {
+          "name": "element",
+          "content": "\r\n\t\t\t\t\r\n<xsl:element  name = \"\">\r\n"
+        },
+        {
+          "name": "fallback",
+          "content": "\r\n\t\t\t\t\r\n<xsl:fallback>\r\n"
+        },
+        {
+          "name": "for-each",
+          "content": "\r\n\t\t\t\t\r\n<xsl:for-each select = \"\">\r\n"
+        },
+        {
+          "name": "if",
+          "content": "\r\n<xsl:if test = \"\">"
+        },
+        {
+          "name": "message",
+          "content": "\r\n\t\t\t\t\r\n<xsl:message terminate = \"no\">\r\n"
+        },
+        {
+          "name": "when",
+          "content": "\r\n\t\t\t\t\r\n<xsl:when test = \"\">\r\n"
+        },
+        {
+          "name": "variable - full",
+          "content": "\r\n\t\t\t\t<xsl:variable name = \"\">"
+        },
+        {
+          "name": "text",
+          "content": "\r\n\t\t\t\t\r\n<xsl:text disable-output-escaping = \"yes\" | \"no\">\r\n"
+        },
+        {
+          "name": "stylesheet",
+          "content": "\r\n\t\t\t\t\r\n<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\r\n"
+        },
+        {
+          "name": "msxsl:script - JScript",
+          "content": "\r\n\t\t\t\t\r\n<msxsl:script  language = \"JScript\" implements-prefix=\"\">\r\n"
+        },
+        {
+          "name": "with-param",
+          "content": "\r\n<xsl:with-param name=\"\">"
+        }
+      ]
+    },
+    {
+      "name": "XSLT Functions / Node Set",
+      "templates": [
+        {
+          "name": "document",
+          "content": "document("
+        },
+        {
+          "name": "key",
+          "content": "key(name,value)"
+        },
+        {
+          "name": "id",
+          "content": "id("
+        },
+        {
+          "name": "local-name",
+          "content": "local-name("
+        },
+        {
+          "name": "namespace-uri",
+          "content": "namespace-uri("
+        },
+        {
+          "name": "name",
+          "content": "name("
+        }
+      ]
+    },
+    {
+      "name": "XSLT Functions / String",
+      "templates": [
+        {
+          "name": "string",
+          "content": "string("
+        },
+        {
+          "name": "concat",
+          "content": "concat("
+        },
+        {
+          "name": "starts-with",
+          "content": "starts-with("
+        },
+        {
+          "name": "contains",
+          "content": "contains("
+        },
+        {
+          "name": "substring-before",
+          "content": "substring-before("
+        },
+        {
+          "name": "substring-after",
+          "content": "substring-after(string"
+        },
+        {
+          "name": "substring",
+          "content": "substring()"
+        },
+        {
+          "name": "string-length",
+          "content": "string-length("
+        },
+        {
+          "name": "normalize-space",
+          "content": "normalize-space("
+        },
+        {
+          "name": "translate",
+          "content": "translate("
+        }
+      ]
+    },
+    {
+      "name": "XSLT Functions / Boolean",
+      "templates": [
+        {
+          "name": "boolean",
+          "content": "boolean("
+        },
+        {
+          "name": "not",
+          "content": "not("
+        },
+        {
+          "name": "lang",
+          "content": "lang("
+        }
+      ]
+    },
+    {
+      "name": "XSLT Functions / Number",
+      "templates": [
+        {
+          "name": "number",
+          "content": "number("
+        },
+        {
+          "name": "sum",
+          "content": "sum("
+        },
+        {
+          "name": "floor",
+          "content": "floor("
+        },
+        {
+          "name": "ceiling",
+          "content": "ceiling("
+        },
+        {
+          "name": "round",
+          "content": "round("
+        }
+      ]
+    },
+    {
+      "name": "XSLT Functions / XSLT",
+      "templates": [
+        {
+          "name": "system-property",
+          "content": "system-property("
+        },
+        {
+          "name": "format-number",
+          "content": "format-number("
+        },
+        {
+          "name": "element-available",
+          "content": "element-available("
+        },
+        {
+          "name": "generate-id",
+          "content": "generate-id("
+        },
+        {
+          "name": "function-available",
+          "content": "function-available("
+        }
+      ]
+    },
+    {
+      "name": "Namespaces",
+      "templates": [
+        {
+          "name": "XHTML",
+          "content": "xmlns=\"http://www.w3.org/1999/xhtml\""
+        }
+      ]
+    },
+    {
+      "name": "XML",
+      "templates": [
+        {
+          "name": "xsl-stylesheet PI",
+          "content": "<?xml-stylesheet type=\"text/xsl\" href=\""
+        },
+        {
+          "name": "DOCTYPE - SYSTEM",
+          "content": "<!DOCTYPE name SYSTEM \"\" >"
+        },
+        {
+          "name": "DOCTYPE - PUBLIC",
+          "content": "<!DOCTYPE name PUBLIC \"\" \"http://\" >"
+        },
+        {
+          "name": "DOCTYPE - EMBEDED",
+          "content": "<!DOCTYPE name [ ]>"
+        }
+      ]
+    },
+    {
+      "name": "XSLT",
+      "templates": [
+        {
+          "name": "Reverse indexed loop - for( i=0; i$lt;x ; i++ )",
+          "content": "\r\n\t\t\t\t\r\n<!-- Use: include this call with the number of iterations\r\n\tthis sample will loop from 10 to 1 including 1 and 10\r\n-->\r\n<xsl:call-template name=\"for.loop\">\r\n\t<xsl:with-param name=\"count\">10</xsl:with-param>\r\n</xsl:call-template>\r\n<!-- Rename \"old name\" elements to \"new name\" -->\r\n<xsl:template name=\"for.loop\">\r\n\t<xsl:param name=\"count\"/>\r\n\t<xsl:if test=\"$count &gt; 0\">\r\n"
+        },
+        {
+          "name": "Indexed loop - for( i=0; i$lt;x ; i++ )",
+          "content": "\r\n\t\t\t\t\r\n<!-- Use: include this call with the number of iterations\r\n\tThis sample will loop from 1 to 10 including 1 and 10\r\n-->\r\n<xsl:call-template name=\"for.loop\">\r\n\t<xsl:with-param name=\"i\">1</xsl:with-param>\r\n\t<xsl:with-param name=\"count\">10</xsl:with-param>\r\n</xsl:call-template>\r\n<!-- Rename \"old name\" elements to \"new name\" -->\r\n<xsl:template name=\"for.loop\">\r\n\t<xsl:param name=\"i\"/>\r\n\t<xsl:param name=\"count\"/>\r\n\t<xsl:if test=\"$i &lt;= $count\">\r\n"
+        },
+        {
+          "name": "Select Distinct",
+          "content": "   <xsl:key name=\"chatters\" match=\"@from\" use=\".\"/> \r\n   \r\n   <xsl:template name=\"jabber.chatters.show\">\r\n   \t<p>\r\n       <u>Chatters:</u>\r\n\r\n       <br />\r\n\r\n    \r\n        <table border=\"0\" cellPadding=\"1\" cellSpacing=\"1\" width=\"100%\">\r\n           <xsl:for-each select=\"/jabber/chat/message[count(@from | key('chatters', @from)[1]) = 1]\">\r\n              \t\t\t\t\t\t\t\t\r\n                  <tr><xsl:value-of select=\"@from\" /></tr>\r\n\t\t\t\t                                   \r\n           </xsl:for-each>"
+        },
+        {
+          "name": "Extract Last Child",
+          "content": "<xsl:template match=\"parent/child[last()]\"> \r\n<xsl:copy> \r\n<xsl:copy-of select=\"@* | * | comment()\" /> \r\n<xsl:apply-templates /> \r\n</xsl:copy> \r\n</xsl:template> "
+        },
+        {
+          "name": "Prints Attributes Names",
+          "content": "<xsl:for-each select = \"@*\"><xsl:value-of select=\"name(.)\" /></xsl:for-each>"
+        },
+        {
+          "name": "Prints Attributes Values",
+          "content": "<xsl:for-each select = \"@*\"><xsl:value-of select=\".\" /></xsl:for-each>"
+        }
+      ]
+    },
+    {
+      "name": "XSLT Standard Templates",
+      "templates": [
+        {
+          "name": "Built-in root and element nodes",
+          "content": "<xsl:template match=\"/|*\">\n\t<xsl:apply-templates/>\n</xsl:template>"
+        },
+        {
+          "name": "Built-in text and attributes",
+          "content": "<xsl:template match=\"text()\">\n\t<xsl:value-of select=\".\"/>\n</xsl:template>"
+        },
+        {
+          "name": "Processing instructions",
+          "content": "<xsl:template match=\"processing-instruction()|comment()\"/>"
+        },
+        {
+          "name": "Identity transformation template",
+          "content": "<xsl:template match=\"/ | @* | * | comment() | processing-instruction() | text()\">\n\t<xsl:copy>\n\t\t<xsl:apply-templates select=\"@* | * | comment() | processing-instruction() | text()\"/>\n\t</xsl:copy>\n</xsl:template>"
+        }
+      ]
+    },
+    {
+      "name": "Encoding",
+      "templates": [
+        {
+          "name": "encoding",
+          "content": " encoding=\" "
+        },
+        {
+          "name": "Unicode UTF-7",
+          "content": "UTF-7"
+        },
+        {
+          "name": "Unicode UTF-8",
+          "content": "UTF-8"
+        },
+        {
+          "name": "Unicode UTF-16",
+          "content": "UTF-16"
+        },
+        {
+          "name": "ISO-8859-1 - Latin 1/West European",
+          "content": "ISO-8859-1"
+        },
+        {
+          "name": "ISO-8859-2 - Latin 2/Central European",
+          "content": "ISO-8859-2"
+        },
+        {
+          "name": "ISO-8859-3 - Latin 3/South European",
+          "content": "ISO-8859-3"
+        },
+        {
+          "name": "ISO-8859-4 - Latin 4/North European",
+          "content": "ISO-8859-4"
+        },
+        {
+          "name": "ISO-8859-5 - Cyrillic",
+          "content": "ISO-8859-5"
+        },
+        {
+          "name": "ISO-8859-6 - Arabic",
+          "content": "ISO-8859-6"
+        },
+        {
+          "name": "ISO-8859-7 - Greek",
+          "content": "ISO-8859-7"
+        },
+        {
+          "name": "ISO-8859-8 - Hebrew",
+          "content": "ISO-8859-8"
+        },
+        {
+          "name": "ISO-8859-9 - Latin 5/Turkish",
+          "content": "ISO-8859-9"
+        },
+        {
+          "name": "ISO-8859-11 -  TIS-620/Thai",
+          "content": "ISO-8859-11"
+        },
+        {
+          "name": "ISO-8859-14 - Latin 8",
+          "content": "ISO-8859-14"
+        },
+        {
+          "name": "ISO-8859-15 - Latin 9",
+          "content": "ISO-8859-15"
+        },
+        {
+          "name": "ISO-2022-JP",
+          "content": "ISO-2022-JP"
+        },
+        {
+          "name": "ISO-2022-KR",
+          "content": "ISO-2022-KR"
+        },
+        {
+          "name": "ISO-10646-UCS-4 - Unicode 32-bit",
+          "content": "ISO-10646-UCS-4"
+        },
+        {
+          "name": "ISO-10646-UCS-2 - Unicode 16-bit",
+          "content": "ISO-10646-UCS-2"
+        },
+        {
+          "name": "Big5 - Taiwanese",
+          "content": "Big5"
+        },
+        {
+          "name": "GB2312 - Chinese",
+          "content": "GB2312"
+        },
+        {
+          "name": "EUC-JP - Japanese",
+          "content": "EUC-JP"
+        },
+        {
+          "name": "EUC-KR - Korean",
+          "content": "EUC-KR"
+        },
+        {
+          "name": "US-ASCII - ISO-646-US",
+          "content": "US-ASCII"
+        },
+        {
+          "name": "KOI8-R - Russian",
+          "content": "KOI8-R"
+        },
+        {
+          "name": "Shift_JIS",
+          "content": "Shift_JIS"
+        },
+        {
+          "name": "Windows 874 - Thai",
+          "content": "Windows-874"
+        },
+        {
+          "name": "Windows 1250 - Central Europe",
+          "content": "Windows-1250"
+        },
+        {
+          "name": "Windows 1251 - Cyrilic",
+          "content": "Windows-1251"
+        },
+        {
+          "name": "Windows 1252 - Latin - 1",
+          "content": "Windows-1252"
+        },
+        {
+          "name": "Windows 1253 - Greek ",
+          "content": "Windows-1253"
+        },
+        {
+          "name": "Windows 1254 - Turkish",
+          "content": "Windows-1254"
+        },
+        {
+          "name": "Windows 1255 - Hebrew",
+          "content": "Windows-1255"
+        },
+        {
+          "name": "Windows 1256 - Arabic",
+          "content": "Windows-1256"
+        },
+        {
+          "name": "Windows 1257 - Baltic",
+          "content": "Windows-1257"
+        },
+        {
+          "name": "Windows 1258 - Viet Nam",
+          "content": "Windows-1258"
+        }
+      ]
+    }
+  ],
+  "standaloneTemplates": [
+    {
+      "name": "XSL Template",
+      "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n<xsl:template match=\"/\"></xsl:template>\n</xsl:stylesheet>"
+    },
+    {
+      "name": "XSL HTML Template",
+      "content": "<?xml version=\"1.0\"?>\n<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n\t<xsl:output method = \"html\" encoding=\"UTF-8\" />\n\t<xsl:template match=\"/\">\n\t\t<html>\n\t\t\t<title></title>\n\t\t\t<body></body>\n\t\t</html>\n\t</xsl:template>\n</xsl:stylesheet>"
+    }
+  ]
+}
