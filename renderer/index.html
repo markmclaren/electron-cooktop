@@ -14,7 +14,10 @@
             <!-- Always-visible vertical sidebar -->
             <div class="activity-bar" id="activity-bar">
                 <button id="btn-toggle-sidebar" class="btn-icon activity-toggle" title="Toggle Code Bits">◀</button>
-                <!-- You can add more icons/buttons here for future navigation -->
+                <button id="btn-format" class="btn-icon" title="Format XML (F8)">🧹</button>
+                <button id="btn-validate" class="btn-icon" title="Validate (F7)">✔️</button>
+                <button id="btn-run-xslt" class="btn-icon" title="Run XSLT (F5)">⚡</button>
+                <button id="btn-run-xslt-save" class="btn-icon" title="Run XSLT and save to file">💾</button>
             </div>
             <!-- Sidebar for Code Bits (Templates) -->
             <div class="sidebar" id="sidebar">
@@ -33,18 +36,7 @@
             
             <!-- Main Content Area - The "Cooktop" -->
             <div class="main-content">
-                <!-- Toolbar -->
-                <div class="toolbar">
-                    <div class="toolbar-group">
-                        <button id="btn-format" class="btn" title="Format XML (F8)">Format XML</button>
-                        <button id="btn-validate" class="btn" title="Validate (F7)">Validate</button>
-                    </div>
-                    <div class="toolbar-separator"></div>
-                    <div class="toolbar-group">
-                        <button id="btn-run-xslt" class="btn btn-primary" title="Run XSLT (F5)">Run XSLT</button>
-                        <button id="btn-run-xslt-save" class="btn" title="Run XSLT and save to file">Run XSLT and save to file...</button>
-                    </div>
-                </div>
+                <!-- Toolbar removed; buttons moved to sidebar -->
                 
                 <!-- Cooktop Panes Container -->
                 <div class="cooktop-container">
@@ -85,6 +77,7 @@
                                 <div class="pane-controls">
                                     <button class="btn-icon" title="Open XML file">📁</button>
                                     <button class="btn-icon" title="Save XML">💾</button>
+                                    <button class="btn-icon" title="Copy XML" id="btn-copy-source">📋</button>
                                     <button class="btn-icon" title="Clear Source" id="btn-clear-source">🗑️</button>
                                 </div>
                             </div>
@@ -117,6 +110,7 @@
                                 <div class="pane-controls">
                                     <button class="btn-icon" title="Open XSL file">📁</button>
                                     <button class="btn-icon" title="Save XSL">💾</button>
+                                    <button class="btn-icon" title="Copy XSL" id="btn-copy-stylesheet">📋</button>
                                     <button class="btn-icon" title="Clear Stylesheet" id="btn-clear-stylesheet">🗑️</button>
                                 </div>
                             </div>

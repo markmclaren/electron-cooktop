@@ -19,14 +19,13 @@ class XMLCooktop {
   }
 
   async init() {
-    await this.initializeMonaco();
-    this.setupEventListeners();
-    await this.loadTemplates();
-    this.setupMenuListeners();
-    this.initializeCooktop();
-    this.showWelcomeScreen();
+  await this.initializeMonaco();
+  this.setupEventListeners();
+  await this.loadTemplates();
+  this.setupMenuListeners();
+  this.showWelcomeScreen();
 
-    console.log("XML Cooktop initialized with multi-pane interface");
+  console.log("XML Cooktop initialized, showing welcome screen");
   }
 
   async initializeMonaco() {
@@ -262,6 +261,21 @@ class XMLCooktop {
   }
 
   setupEventListeners() {
+    // Source XML copy button
+    const copySourceBtn = document.getElementById("btn-copy-source");
+    if (copySourceBtn) copySourceBtn.addEventListener("click", () => {
+      const xmlText = this.editors.source.getValue();
+      navigator.clipboard.writeText(xmlText);
+      this.updateStatus("Source XML copied to clipboard");
+    });
+
+    // Stylesheet copy button
+    const copyStylesheetBtn = document.getElementById("btn-copy-stylesheet");
+    if (copyStylesheetBtn) copyStylesheetBtn.addEventListener("click", () => {
+      const xslText = this.editors.stylesheet.getValue();
+      navigator.clipboard.writeText(xslText);
+      this.updateStatus("Stylesheet XSL copied to clipboard");
+    });
     // Source XML clear button
     const clearSourceBtn = document.getElementById("btn-clear-source");
     if (clearSourceBtn) clearSourceBtn.addEventListener("click", () => {
@@ -300,8 +314,14 @@ class XMLCooktop {
     // Sidebar toggle (Code Bits button)
     document.getElementById("btn-toggle-sidebar").addEventListener("click", () => {
       const sidebar = document.getElementById("sidebar");
-      sidebar.classList.toggle("collapsed");
-      this.updateStatus(sidebar.classList.contains("collapsed") ? "Code Bits sidebar hidden" : "Code Bits sidebar shown");
+      const mainLayout = document.querySelector(".main-layout");
+      const collapsed = sidebar.classList.toggle("collapsed");
+      if (collapsed) {
+        mainLayout.classList.add("sidebar-collapsed");
+      } else {
+        mainLayout.classList.remove("sidebar-collapsed");
+      }
+      this.updateStatus(collapsed ? "Code Bits sidebar hidden" : "Code Bits sidebar shown");
     });
 
     // Cooktop tabs
@@ -367,14 +387,17 @@ class XMLCooktop {
     // Welcome screen
     document.getElementById("btn-welcome-new").addEventListener("click", () => {
       this.hideWelcomeScreen();
+      this.initializeCooktop();
       this.newDocument();
     });
     document.getElementById("btn-welcome-open").addEventListener("click", () => {
       this.hideWelcomeScreen();
+      this.initializeCooktop();
       this.openFile();
     });
     document.getElementById("btn-welcome-sample").addEventListener("click", () => {
       this.hideWelcomeScreen();
+      this.initializeCooktop();
       this.loadSampleData();
     });
 
@@ -504,14 +527,14 @@ class XMLCooktop {
 
     this.templates.folders.forEach((folder) => {
       const folderElement = document.createElement("div");
-      folderElement.className = "template-folder";
+      folderElement.className = "template-folder"; // collapsed by default
 
       const headerElement = document.createElement("div");
       headerElement.className = "template-folder-header";
       headerElement.innerHTML = `
-                <span class="template-folder-icon">▶</span>
-                <span>${folder.name}</span>
-            `;
+        <span class="template-folder-icon">▶</span>
+        <span>${folder.name}</span>
+      `;
 
       const itemsElement = document.createElement("div");
       itemsElement.className = "template-items";
@@ -534,6 +557,7 @@ class XMLCooktop {
       }
 
       headerElement.addEventListener("click", () => {
+        // Toggle only this folder
         folderElement.classList.toggle("expanded");
       });
 
@@ -951,7 +975,13 @@ class XMLCooktop {
 
   toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("collapsed");
+    const mainLayout = document.querySelector(".main-layout");
+    const collapsed = sidebar.classList.toggle("collapsed");
+    if (collapsed) {
+      mainLayout.classList.add("sidebar-collapsed");
+    } else {
+      mainLayout.classList.remove("sidebar-collapsed");
+    }
   }
 
   showWelcomeScreen() {
