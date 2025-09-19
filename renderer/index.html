@@ -84,26 +84,20 @@
                         
                         <!-- Source XML Pane -->
                         <div class="cooktop-pane" id="pane-source" data-pane="source">
-                            <div class="pane-header">
+                            <div class="pane-content">
+                                <div id="editor-source" class="monaco-editor-container"></div>
+                            </div>
+                            <div class="pane-footer">
                                 <span class="pane-title">Source XML</span>
                                 <div class="pane-controls">
                                     <button class="btn-icon" title="Open XML file">📁</button>
                                     <button class="btn-icon" title="Save XML">💾</button>
                                 </div>
                             </div>
-                            <div class="pane-content">
-                                <div id="editor-source" class="monaco-editor-container"></div>
-                            </div>
                         </div>
                         
                         <!-- XPath Console Pane -->
                         <div class="cooktop-pane" id="pane-xpath" data-pane="xpath">
-                            <div class="pane-header">
-                                <span class="pane-title">XPath Console</span>
-                                <div class="pane-controls">
-                                    <button id="btn-clear-xpath" class="btn-icon" title="Clear console">🗑️</button>
-                                </div>
-                            </div>
                             <div class="pane-content">
                                 <div class="xpath-input-area">
                                     <input type="text" id="xpath-input" placeholder="Enter XPath expression (e.g., //book[@id='1']/title)" />
@@ -111,47 +105,53 @@
                                 </div>
                                 <div id="xpath-output" class="xpath-output"></div>
                             </div>
+                            <div class="pane-footer">
+                                <span class="pane-title">XPath Console</span>
+                                <div class="pane-controls">
+                                    <button id="btn-clear-xpath" class="btn-icon" title="Clear console">🗑️</button>
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Stylesheet XSL Pane -->
                         <div class="cooktop-pane" id="pane-stylesheet" data-pane="stylesheet">
-                            <div class="pane-header">
+                            <div class="pane-content">
+                                <div id="editor-stylesheet" class="monaco-editor-container"></div>
+                            </div>
+                            <div class="pane-footer">
                                 <span class="pane-title">Stylesheet (XSL)</span>
                                 <div class="pane-controls">
                                     <button class="btn-icon" title="Open XSL file">📁</button>
                                     <button class="btn-icon" title="Save XSL">💾</button>
                                 </div>
                             </div>
-                            <div class="pane-content">
-                                <div id="editor-stylesheet" class="monaco-editor-container"></div>
-                            </div>
                         </div>
                         
                         <!-- Result XML Pane -->
                         <div class="cooktop-pane" id="pane-result" data-pane="result">
-                            <div class="pane-header">
+                            <div class="pane-content">
+                                <div id="editor-result" class="monaco-editor-container"></div>
+                            </div>
+                            <div class="pane-footer">
                                 <span class="pane-title">Result</span>
                                 <div class="pane-controls">
                                     <button class="btn-icon" title="Save result">💾</button>
                                     <button class="btn-icon" title="Copy result">📋</button>
                                 </div>
                             </div>
-                            <div class="pane-content">
-                                <div id="editor-result" class="monaco-editor-container"></div>
-                            </div>
                         </div>
                         
                         <!-- Result HTML Pane -->
                         <div class="cooktop-pane" id="pane-result-html" data-pane="result-html">
-                            <div class="pane-header">
+                            <div class="pane-content">
+                                <iframe id="html-preview" class="html-preview" sandbox="allow-same-origin"></iframe>
+                            </div>
+                            <div class="pane-footer">
                                 <span class="pane-title">Result (HTML)</span>
                                 <div class="pane-controls">
                                     <button class="btn-icon" title="Open in browser">🌐</button>
                                     <button class="btn-icon" title="Save HTML">💾</button>
                                 </div>
-                            </div>
-                            <div class="pane-content">
-                                <iframe id="html-preview" class="html-preview" sandbox="allow-same-origin"></iframe>
                             </div>
                         </div>
                         

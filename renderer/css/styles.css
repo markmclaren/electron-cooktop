@@ -239,7 +239,7 @@ body {
     display: flex;
 }
 
-.pane-header {
+.pane-footer {
     padding: 6px 8px;
     background: linear-gradient(to bottom, #f8f8f8, #e8e8e8);
     border-bottom: 1px solid #d0d0d0;
