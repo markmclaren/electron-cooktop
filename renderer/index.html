@@ -6,6 +6,7 @@
     <title>XML Cooktop - Cross-Platform XML Editor</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/editor/editor.main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 <body>
     <div id="app">
@@ -13,11 +14,11 @@
         <div class="main-layout">
             <!-- Always-visible vertical sidebar -->
             <div class="activity-bar" id="activity-bar">
-                <button id="btn-toggle-sidebar" class="btn-icon activity-toggle" title="Toggle Code Bits">◀</button>
-                <button id="btn-format" class="btn-icon" title="Format XML (F8)">🧹</button>
-                <button id="btn-validate" class="btn-icon" title="Validate (F7)">✔️</button>
-                <button id="btn-run-xslt" class="btn-icon" title="Run XSLT (F5)">⚡</button>
-                <button id="btn-run-xslt-save" class="btn-icon" title="Run XSLT and save to file">💾</button>
+                <button id="btn-toggle-sidebar" class="btn-icon activity-toggle" title="Toggle Code Bits"><i class="bi bi-chevron-left"></i></button>
+                <button id="btn-format" class="btn-icon" title="Format XML (F8)"><i class="bi bi-magic"></i></button>
+                <button id="btn-validate" class="btn-icon" title="Validate (F7)"><i class="bi bi-check2-circle"></i></button>
+                <button id="btn-run-xslt" class="btn-icon" title="Run XSLT (F5)"><i class="bi bi-lightning-charge"></i></button>
+                <button id="btn-run-xslt-save" class="btn-icon" title="Run XSLT and save to file"><i class="bi bi-save"></i></button>
             </div>
             <!-- Sidebar for Code Bits (Templates) -->
             <div class="sidebar" id="sidebar">
@@ -43,23 +44,23 @@
                     <!-- Cooktop Tab Bar -->
                     <div class="cooktop-tabs" id="cooktop-tabs">
                         <div class="cooktop-tab active" data-pane="source">
-                            <span class="tab-icon">📄</span>
+                            <span class="tab-icon"><i class="bi bi-file-earmark-text"></i></span>
                             <span class="tab-label">source (xml)</span>
                         </div>
                         <div class="cooktop-tab" data-pane="xpath">
-                            <span class="tab-icon">🔍</span>
+                            <span class="tab-icon"><i class="bi bi-search"></i></span>
                             <span class="tab-label">xpath console</span>
                         </div>
                         <div class="cooktop-tab" data-pane="stylesheet">
-                            <span class="tab-icon">🎨</span>
+                            <span class="tab-icon"><i class="bi bi-brush"></i></span>
                             <span class="tab-label">stylesheet(xsl)</span>
                         </div>
                         <div class="cooktop-tab" data-pane="result">
-                            <span class="tab-icon">📋</span>
+                            <span class="tab-icon"><i class="bi bi-clipboard-data"></i></span>
                             <span class="tab-label">result</span>
                         </div>
                         <div class="cooktop-tab" data-pane="result-html">
-                            <span class="tab-icon">🌐</span>
+                            <span class="tab-icon"><i class="bi bi-globe"></i></span>
                             <span class="tab-label">result(html)</span>
                         </div>
                     </div>
@@ -75,10 +76,10 @@
                             <div class="pane-footer">
                                 <span class="pane-title">Source XML</span>
                                 <div class="pane-controls">
-                                    <button class="btn-icon" title="Open XML file">📁</button>
-                                    <button class="btn-icon" title="Save XML">💾</button>
-                                    <button class="btn-icon" title="Copy XML" id="btn-copy-source">📋</button>
-                                    <button class="btn-icon" title="Clear Source" id="btn-clear-source">🗑️</button>
+                                    <button class="btn-icon" title="Open XML file"><i class="bi bi-folder2-open"></i></button>
+                                    <button class="btn-icon" title="Save XML"><i class="bi bi-save"></i></button>
+                                    <button class="btn-icon" title="Copy XML" id="btn-copy-source"><i class="bi bi-clipboard"></i></button>
+                                    <button class="btn-icon" title="Clear Source" id="btn-clear-source"><i class="bi bi-trash"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -108,10 +109,10 @@
                             <div class="pane-footer">
                                 <span class="pane-title">Stylesheet (XSL)</span>
                                 <div class="pane-controls">
-                                    <button class="btn-icon" title="Open XSL file">📁</button>
-                                    <button class="btn-icon" title="Save XSL">💾</button>
-                                    <button class="btn-icon" title="Copy XSL" id="btn-copy-stylesheet">📋</button>
-                                    <button class="btn-icon" title="Clear Stylesheet" id="btn-clear-stylesheet">🗑️</button>
+                                    <button class="btn-icon" title="Open XSL file"><i class="bi bi-folder2-open"></i></button>
+                                    <button class="btn-icon" title="Save XSL"><i class="bi bi-save"></i></button>
+                                    <button class="btn-icon" title="Copy XSL" id="btn-copy-stylesheet"><i class="bi bi-clipboard"></i></button>
+                                    <button class="btn-icon" title="Clear Stylesheet" id="btn-clear-stylesheet"><i class="bi bi-trash"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -124,8 +125,8 @@
                             <div class="pane-footer">
                                 <span class="pane-title">Result</span>
                                 <div class="pane-controls">
-                                    <button class="btn-icon" title="Save result">💾</button>
-                                    <button class="btn-icon" title="Copy result">📋</button>
+                                    <button class="btn-icon" title="Save result"><i class="bi bi-save"></i></button>
+                                    <button class="btn-icon" title="Copy result"><i class="bi bi-clipboard"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -138,8 +139,8 @@
                             <div class="pane-footer">
                                 <span class="pane-title">Result (HTML)</span>
                                 <div class="pane-controls">
-                                    <button class="btn-icon" title="Open in browser">🌐</button>
-                                    <button class="btn-icon" title="Save HTML">💾</button>
+                                    <button class="btn-icon" title="Open in browser"><i class="bi bi-box-arrow-up-right"></i></button>
+                                    <button class="btn-icon" title="Save HTML"><i class="bi bi-save"></i></button>
                                 </div>
                             </div>
                         </div>
