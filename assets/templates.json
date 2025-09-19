@@ -1,253 +1,91 @@
 {
   "folders": [
     {
-      "name": "DTD / DOCTYPE",
-      "templates": [
-        {
-          "name": "SYSTEM",
-          "content": "<!DOCTYPE top-element SYSTEM \"*.dtd\" >"
-        },
-        {
-          "name": "PUBLIC",
-          "content": "<!DOCTYPE top-element PUBLIC \"*.dtd\" >"
-        },
-        {
-          "name": "LOCAL",
-          "content": "\r\n<!DOCTYPE top-element [\r\n\r\n\telement lists\r\n\t\r\n]> "
-        }
-      ]
-    },
-    {
-      "name": "DTD / quantity operator",
-      "templates": [
-        {
-          "name": "one or more (+)",
-          "content": "+"
-        },
-        {
-          "name": "zero or more (*)",
-          "content": "*"
-        },
-        {
-          "name": "zero or once (?)",
-          "content": "?"
-        }
-      ]
-    },
-    {
-      "name": "DTD / ELEMENT Types",
-      "templates": [
-        {
-          "name": "text",
-          "content": " #PCDATA "
-        },
-        {
-          "name": "empty",
-          "content": " EMPTY "
-        },
-        {
-          "name": "any",
-          "content": " ANY "
-        },
-        {
-          "name": "list of children",
-          "content": "  ( | | | ) "
-        },
-        {
-          "name": "PCData",
-          "content": "#PCDATA"
-        }
-      ]
-    },
-    {
-      "name": "DTD / Modifiers",
-      "templates": [
-        {
-          "name": "CData",
-          "content": "CDATA"
-        },
-        {
-          "name": "Required",
-          "content": " #REQUIRED "
-        },
-        {
-          "name": "Implied",
-          "content": " #IMPLIED "
-        },
-        {
-          "name": "Fixed",
-          "content": " #FIXED "
-        },
-        {
-          "name": "Id",
-          "content": " ID  "
-        },
-        {
-          "name": "Idref",
-          "content": " IDREF "
-        },
-        {
-          "name": "Idrefs",
-          "content": " IDREFS "
-        },
-        {
-          "name": "Notation",
-          "content": " #NOTATION "
-        },
-        {
-          "name": "NMTOKEN",
-          "content": " NMTOKEN  "
-        },
-        {
-          "name": "NMTOKENS",
-          "content": " NMTOKEN  "
-        },
-        {
-          "name": "ENTITY (attr)",
-          "content": " ENTITY  "
-        },
-        {
-          "name": "ENTITIES (attr)",
-          "content": " ENTITIES "
-        },
-        {
-          "name": "list of values",
-          "content": " ( | | |)  "
-        }
-      ]
-    },
-    {
-      "name": "DTD / Entities modifiers",
-      "templates": [
-        {
-          "name": "Include",
-          "content": " 'INCLUDE' "
-        },
-        {
-          "name": "Ignore",
-          "content": " 'IGNORE' "
-        }
-      ]
-    },
-    {
-      "name": "DTD",
-      "templates": [
-        {
-          "name": "ENTITY",
-          "content": "<!ENTITY name >\r\n"
-        },
-        {
-          "name": "ENTITY (parameter)",
-          "content": "<!ENTITY % name >\r\n\t\t"
-        },
-        {
-          "name": "ELEMENT",
-          "content": "<!ELEMENT name ( list of ellements ) >\r\n"
-        },
-        {
-          "name": "ATTLIST",
-          "content": "<!ATTLIST name \r\n\r\n\tattr. list\r\n>\r\n"
-        },
-        {
-          "name": "NOTATION",
-          "content": "<!NOTATION name   >\r\n"
-        },
-        {
-          "name": "Name Data",
-          "content": " NDATA "
-        }
-      ]
-    },
-    {
       "name": "XSLT Elements",
       "templates": [
         {
           "name": "value-of",
-          "content": "<xsl:value-of select=\""
+          "content": "<xsl:value-of select=\"/root/node\"/>"
         },
         {
           "name": "value-of with escape clause",
-          "content": "<xsl:value-of disable-output-escaping=\"yes\" select=\""
+          "content": "<xsl:value-of disable-output-escaping=\"yes\" select=\"/root/node\"/>"
         },
         {
           "name": "template - full",
-          "content": "\r\n<xsl:template name=\"\" match=\"/\">\r\n"
+          "content": "<xsl:template name=\"myTemplate\" match=\"/\">\n  <xsl:value-of select=\"/root/node\"/>\n</xsl:template>"
         },
         {
           "name": "template - named",
-          "content": "\r\n<xsl:template name=\"\">\r\n"
+          "content": "<xsl:template name=\"myTemplate\">\n  <xsl:value-of select=\"/root/node\"/>\n</xsl:template>"
         },
         {
           "name": "template - default",
-          "content": "\r\n<xsl:template match=\"/\">\r\n"
+          "content": "<xsl:template match=\"/\">\n  <xsl:value-of select=\"/root/node\"/>\n</xsl:template>"
         },
         {
           "name": "attribute",
-          "content": "\r\n<xsl:attribute  name = \"\" >\r\n"
+          "content": "<xsl:attribute name=\"attr\">value</xsl:attribute>"
         },
         {
           "name": "attribute-set",
-          "content": "\r\n<xsl:attribute-set name = \"\">\r\n"
+          "content": "<xsl:attribute-set name=\"setName\">\n  <xsl:attribute name=\"attr\">value</xsl:attribute>\n</xsl:attribute-set>"
         },
         {
           "name": "call-template with param",
-          "content": "\r\n<xsl:call-template name = \"\" >\r\n\t<xsl:with-param name=\"tabname\">"
+          "content": "<xsl:call-template name=\"myTemplate\">\n  <xsl:with-param name=\"tabname\">value</xsl:with-param>\n</xsl:call-template>"
         },
         {
           "name": "choose",
-          "content": "\r\n\t\t\t\t\r\n<xsl:choose>\r\n\t<xsl:when test=\"\">\r\n\t\r\n\t\t\t"
+          "content": "<xsl:choose>\n  <xsl:when test=\"/root/node='value'\">\n    <xsl:text>True</xsl:text>\n  </xsl:when>\n  <xsl:otherwise>\n    <xsl:text>False</xsl:text>\n  </xsl:otherwise>\n</xsl:choose>"
         },
         {
           "name": "comment",
-          "content": "\r\n<xsl:comment>\r\n"
+          "content": "<xsl:comment>Comment text</xsl:comment>"
         },
         {
           "name": "copy",
-          "content": "\r\n\t\t\t\t\r\n<xsl:copy>\r\n"
+          "content": "<xsl:copy>\n  <xsl:apply-templates/>\n</xsl:copy>"
         },
         {
           "name": "element",
-          "content": "\r\n\t\t\t\t\r\n<xsl:element  name = \"\">\r\n"
+          "content": "<xsl:element name=\"newElement\">\n  <xsl:text>Content</xsl:text>\n</xsl:element>"
         },
         {
           "name": "fallback",
-          "content": "\r\n\t\t\t\t\r\n<xsl:fallback>\r\n"
+          "content": "<xsl:fallback>Fallback content</xsl:fallback>"
         },
         {
           "name": "for-each",
-          "content": "\r\n\t\t\t\t\r\n<xsl:for-each select = \"\">\r\n"
+          "content": "<xsl:for-each select=\"/root/nodes/node\">\n  <xsl:value-of select=\".\"/>\n</xsl:for-each>"
         },
         {
           "name": "if",
-          "content": "\r\n<xsl:if test = \"\">"
+          "content": "<xsl:if test=\"/root/node='value'\">\n  <xsl:text>True</xsl:text>\n</xsl:if>"
         },
         {
           "name": "message",
-          "content": "\r\n\t\t\t\t\r\n<xsl:message terminate = \"no\">\r\n"
+          "content": "<xsl:message terminate=\"no\">Message text</xsl:message>"
         },
         {
           "name": "when",
-          "content": "\r\n\t\t\t\t\r\n<xsl:when test = \"\">\r\n"
+          "content": "<xsl:when test=\"/root/node='value'\">\n  <xsl:text>True</xsl:text>\n</xsl:when>"
         },
         {
           "name": "variable - full",
-          "content": "\r\n\t\t\t\t<xsl:variable name = \"\">"
+          "content": "<xsl:variable name=\"varName\">value</xsl:variable>"
         },
         {
           "name": "text",
-          "content": "\r\n\t\t\t\t\r\n<xsl:text disable-output-escaping = \"yes\" | \"no\">\r\n"
+          "content": "<xsl:text disable-output-escaping=\"no\">Text content</xsl:text>"
         },
         {
           "name": "stylesheet",
-          "content": "\r\n\t\t\t\t\r\n<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\r\n"
-        },
-        {
-          "name": "msxsl:script - JScript",
-          "content": "\r\n\t\t\t\t\r\n<msxsl:script  language = \"JScript\" implements-prefix=\"\">\r\n"
+          "content": "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n  <xsl:template match=\"/\">\n    <xsl:value-of select=\"/root/node\"/>\n  </xsl:template>\n</xsl:stylesheet>"
         },
         {
           "name": "with-param",
-          "content": "\r\n<xsl:with-param name=\"\">"
+          "content": "<xsl:with-param name=\"paramName\">value</xsl:with-param>"
         }
       ]
     },
@@ -634,6 +472,18 @@
     {
       "name": "XSL HTML Template",
       "content": "<?xml version=\"1.0\"?>\n<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n\t<xsl:output method = \"html\" encoding=\"UTF-8\" />\n\t<xsl:template match=\"/\">\n\t\t<html>\n\t\t\t<title></title>\n\t\t\t<body></body>\n\t\t</html>\n\t</xsl:template>\n</xsl:stylesheet>"
+    },
+    {
+      "name": "XSLT 1.0 Template",
+      "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n  \n\n  \n  <xsl:key name=\"city-key\" match=\"city\" use=\"@name\"/>\n\n  <xsl:template match=\"cities\">\n    <report>\n      <xsl:for-each select=\"city[count(. | key('city-key', @name)[1]) = 1]\">\n        <group-by-city name=\"{@name}\">\n          <xsl:for-each select=\"key('city-key', @name)\">\n            <item>\n              <xsl:value-of select=\".\"/>\n            </item>\n          </xsl:for-each>\n        </group-by-city>\n      </xsl:for-each>\n    </report>\n  </xsl:template>\n\n</xsl:stylesheet>"
+    },
+    {
+      "name": "XSLT 2.0 Template",
+      "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet version=\"2.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n  \n\n  \n  <xsl:template match=\"cities\">\n    <report>\n      <xsl:for-each-group select=\"city\" group-by=\"@name\">\n        <group-by-city name=\"{current-grouping-key()}\">\n          <xsl:for-each select=\"current-group()\">\n            <item>\n              <xsl:value-of select=\".\"/>\n            </item>\n          </xsl:for-each>\n        </group-by-city>\n      </xsl:for-each-group>\n    </report>\n  </xsl:template>\n\n  \n  <xsl:function name=\"xsl:add-numbers\" as=\"xs:integer\">\n    <xsl:param name=\"x\" as=\"xs:integer\"/>\n    <xsl:param name=\"y\" as=\"xs:integer\"/>\n    <xsl:sequence select=\"$x + $y\"/>\n  </xsl:function>\n\n</xsl:stylesheet>"
+    },
+    {
+      "name": "XSLT 3.0 Template",
+      "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet version=\"3.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n  \n\n  \n  <xsl:variable name=\"products\" as=\"map(*)\" select=\"map {\n    'fruits' : ['apple', 'banana', 'orange'],\n    'vegetables' : ['carrot', 'spinach', 'broccoli']\n  }\"/>\n\n  <xsl:template match=\"/\">\n    <list>\n      <xsl:for-each select=\"$products?*\" >\n        <category-items>\n          <xsl:value-of select=\".\" separator=\", \"/>\n        </category-items>\n      </xsl:for-each>\n    </list>\n  </xsl:template>\n\n  \n  \n  <xsl:template name=\"iterate-example\">\n    <xsl:iterate select=\"1 to 5\">\n      <xsl:param name=\"sum\" select=\"0\"/>\n      <result>\n        <xsl:sequence select=\"current() + $sum\"/>\n      </result>\n      <xsl:next-iteration>\n        <xsl:with-param name=\"sum\" select=\"$sum + current()\"/>\n      </xsl:next-iteration>\n    </xsl:iterate>\n  </xsl:template>\n\n</xsl:stylesheet>"
     }
   ]
 }
