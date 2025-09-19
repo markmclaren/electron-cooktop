@@ -262,36 +262,47 @@ class XMLCooktop {
   }
 
   setupEventListeners() {
-    // Toolbar buttons
-    document
-      .getElementById("btn-new")
-      .addEventListener("click", () => this.newDocument());
-    document
-      .getElementById("btn-open")
-      .addEventListener("click", () => this.openFile());
-    document
-      .getElementById("btn-save")
-      .addEventListener("click", () => this.saveFile());
-    document
-      .getElementById("btn-save-as")
-      .addEventListener("click", () => this.saveFileAs());
-    document
-      .getElementById("btn-format")
-      .addEventListener("click", () => this.formatCurrentEditor());
-    document
-      .getElementById("btn-validate")
-      .addEventListener("click", () => this.validateXML());
-    document
-      .getElementById("btn-run-xslt")
-      .addEventListener("click", () => this.runXSLT());
-    document
-      .getElementById("btn-run-xslt-save")
-      .addEventListener("click", () => this.runXSLTAndSave());
+    // Source XML clear button
+    const clearSourceBtn = document.getElementById("btn-clear-source");
+    if (clearSourceBtn) clearSourceBtn.addEventListener("click", () => {
+      const currentValue = this.editors.source.getValue();
+      if (currentValue.trim().length > 0) {
+        if (confirm("Are you sure you want to clear the Source XML pane?")) {
+          this.editors.source.setValue("");
+          this.updateStatus("Source XML pane cleared");
+        }
+      } else {
+        this.editors.source.setValue("");
+        this.updateStatus("Source XML pane cleared");
+      }
+    });
 
-    // Sidebar toggle
-    document
-      .getElementById("btn-toggle-sidebar")
-      .addEventListener("click", () => this.toggleSidebar());
+    // Stylesheet clear button
+    const clearStylesheetBtn = document.getElementById("btn-clear-stylesheet");
+    if (clearStylesheetBtn) clearStylesheetBtn.addEventListener("click", () => {
+      const currentValue = this.editors.stylesheet.getValue();
+      if (currentValue.trim().length > 0) {
+        if (confirm("Are you sure you want to clear the Stylesheet pane?")) {
+          this.editors.stylesheet.setValue("");
+          this.updateStatus("Stylesheet pane cleared");
+        }
+      } else {
+        this.editors.stylesheet.setValue("");
+        this.updateStatus("Stylesheet pane cleared");
+      }
+    });
+  // Toolbar buttons (New, Open, Save, Save As removed)
+    document.getElementById("btn-format").addEventListener("click", () => this.formatCurrentEditor());
+    document.getElementById("btn-validate").addEventListener("click", () => this.validateXML());
+    document.getElementById("btn-run-xslt").addEventListener("click", () => this.runXSLT());
+    document.getElementById("btn-run-xslt-save").addEventListener("click", () => this.runXSLTAndSave());
+
+    // Sidebar toggle (Code Bits button)
+    document.getElementById("btn-toggle-sidebar").addEventListener("click", () => {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("collapsed");
+      this.updateStatus(sidebar.classList.contains("collapsed") ? "Code Bits sidebar hidden" : "Code Bits sidebar shown");
+    });
 
     // Cooktop tabs
     document.querySelectorAll(".cooktop-tab").forEach((tab) => {
@@ -302,9 +313,7 @@ class XMLCooktop {
     });
 
     // XPath console
-    document
-      .getElementById("btn-execute-xpath")
-      .addEventListener("click", () => this.executeXPath());
+    document.getElementById("btn-execute-xpath").addEventListener("click", () => this.executeXPath());
     document.getElementById("xpath-input").addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
         this.executeXPath();
@@ -314,31 +323,64 @@ class XMLCooktop {
       document.getElementById("xpath-output").textContent = "";
     });
 
+    // --- Pane-footer buttons wiring ---
+    // Source XML pane-footer
+    const srcOpenBtn = document.querySelector("#pane-source .pane-footer .btn-icon[title='Open XML file']");
+    if (srcOpenBtn) srcOpenBtn.addEventListener("click", () => this.openFile());
+    const srcSaveBtn = document.querySelector("#pane-source .pane-footer .btn-icon[title='Save XML']");
+    if (srcSaveBtn) srcSaveBtn.addEventListener("click", () => this.saveFile());
+
+    // XPath Console pane-footer
+    const xpathClearBtn = document.querySelector("#pane-xpath .pane-footer .btn-icon[title='Clear console']");
+    if (xpathClearBtn) xpathClearBtn.addEventListener("click", () => {
+      document.getElementById("xpath-output").textContent = "";
+    });
+
+    // Stylesheet pane-footer
+    const xslOpenBtn = document.querySelector("#pane-stylesheet .pane-footer .btn-icon[title='Open XSL file']");
+    if (xslOpenBtn) xslOpenBtn.addEventListener("click", () => this.openFile());
+    const xslSaveBtn = document.querySelector("#pane-stylesheet .pane-footer .btn-icon[title='Save XSL']");
+    if (xslSaveBtn) xslSaveBtn.addEventListener("click", () => this.saveFile());
+
+    // Result pane-footer
+    const resultSaveBtn = document.querySelector("#pane-result .pane-footer .btn-icon[title='Save result']");
+    if (resultSaveBtn) resultSaveBtn.addEventListener("click", () => this.runXSLTAndSave());
+    const resultCopyBtn = document.querySelector("#pane-result .pane-footer .btn-icon[title='Copy result']");
+    if (resultCopyBtn) resultCopyBtn.addEventListener("click", () => {
+      const resultText = this.editors.result.getValue();
+      navigator.clipboard.writeText(resultText);
+      this.updateStatus("Result copied to clipboard");
+    });
+
+    // Result HTML pane-footer
+    const htmlOpenBtn = document.querySelector("#pane-result-html .pane-footer .btn-icon[title='Open in browser']");
+    if (htmlOpenBtn) htmlOpenBtn.addEventListener("click", () => {
+      const htmlPreview = document.getElementById("html-preview");
+      if (htmlPreview && htmlPreview.src) {
+        window.open(htmlPreview.src, "_blank");
+        this.updateStatus("HTML preview opened in browser");
+      }
+    });
+    const htmlSaveBtn = document.querySelector("#pane-result-html .pane-footer .btn-icon[title='Save HTML']");
+    if (htmlSaveBtn) htmlSaveBtn.addEventListener("click", () => this.runXSLTAndSave());
+
     // Welcome screen
     document.getElementById("btn-welcome-new").addEventListener("click", () => {
       this.hideWelcomeScreen();
       this.newDocument();
     });
-    document
-      .getElementById("btn-welcome-open")
-      .addEventListener("click", () => {
-        this.hideWelcomeScreen();
-        this.openFile();
-      });
-    document
-      .getElementById("btn-welcome-sample")
-      .addEventListener("click", () => {
-        this.hideWelcomeScreen();
-        this.loadSampleData();
-      });
+    document.getElementById("btn-welcome-open").addEventListener("click", () => {
+      this.hideWelcomeScreen();
+      this.openFile();
+    });
+    document.getElementById("btn-welcome-sample").addEventListener("click", () => {
+      this.hideWelcomeScreen();
+      this.loadSampleData();
+    });
 
     // Modal close
-    document
-      .getElementById("modal-close")
-      .addEventListener("click", () => this.hideModal());
-    document
-      .getElementById("modal-ok")
-      .addEventListener("click", () => this.hideModal());
+    document.getElementById("modal-close").addEventListener("click", () => this.hideModal());
+    document.getElementById("modal-ok").addEventListener("click", () => this.hideModal());
     document.getElementById("modal-overlay").addEventListener("click", (e) => {
       if (e.target === e.currentTarget) {
         this.hideModal();

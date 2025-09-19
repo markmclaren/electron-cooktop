@@ -27,6 +27,12 @@ body {
     overflow: hidden;
 }
 
+.sidebar.collapsed + .main-content {
+    width: calc(100vw - 40px); /* 40px for activity bar */
+    margin-left: 0;
+}
+}
+
 /* Sidebar - Code Bits */
 .sidebar {
 /* Thin vertical sidebar for Code Bits */
