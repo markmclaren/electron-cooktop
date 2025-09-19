@@ -219,7 +219,7 @@ class XMLCooktop {
             <head>
                 <title>Book Catalog</title>
                 <style>
-                    body { font-family: Arial, sans-serif; margin: 20px; }
+                    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9;}
                     table { border-collapse: collapse; width: 100%; }
                     th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
                     th { background-color: #f2f2f2; }
@@ -261,6 +261,22 @@ class XMLCooktop {
   }
 
   setupEventListeners() {
+    // Dark mode toggle
+    const darkToggleBtn = document.getElementById("btn-toggle-dark");
+    if (darkToggleBtn) {
+      darkToggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        if (document.body.classList.contains("dark")) {
+          if (window.monaco) {
+            window.monaco.editor.setTheme("vs-dark");
+          }
+        } else {
+          if (window.monaco) {
+            window.monaco.editor.setTheme("cooktop-theme");
+          }
+        }
+      });
+    }
     // Source XML copy button
     const copySourceBtn = document.getElementById("btn-copy-source");
     if (copySourceBtn) copySourceBtn.addEventListener("click", () => {

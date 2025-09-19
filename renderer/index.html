@@ -14,11 +14,17 @@
         <div class="main-layout">
             <!-- Always-visible vertical sidebar -->
             <div class="activity-bar" id="activity-bar">
-                <button id="btn-toggle-sidebar" class="btn-icon activity-toggle" title="Toggle Code Bits"><i class="bi bi-chevron-left"></i></button>
-                <button id="btn-format" class="btn-icon" title="Format XML (F8)"><i class="bi bi-magic"></i></button>
-                <button id="btn-validate" class="btn-icon" title="Validate (F7)"><i class="bi bi-check2-circle"></i></button>
-                <button id="btn-run-xslt" class="btn-icon" title="Run XSLT (F5)"><i class="bi bi-lightning-charge"></i></button>
-                <button id="btn-run-xslt-save" class="btn-icon" title="Run XSLT and save to file"><i class="bi bi-save"></i></button>
+                <div style="display:flex;flex-direction:column;height:100%;">
+                    <div style="display:flex;flex-direction:column;gap:0;">
+                        <button id="btn-toggle-sidebar" class="btn-icon activity-toggle" title="Toggle Code Bits"><i class="bi bi-chevron-left"></i></button>
+                        <button id="btn-format" class="btn-icon" title="Format XML (F8)"><i class="bi bi-magic"></i></button>
+                        <button id="btn-validate" class="btn-icon" title="Validate (F7)"><i class="bi bi-check2-circle"></i></button>
+                        <button id="btn-run-xslt" class="btn-icon" title="Run XSLT (F5)"><i class="bi bi-lightning-charge"></i></button>
+                        <button id="btn-run-xslt-save" class="btn-icon" title="Run XSLT and save to file"><i class="bi bi-save"></i></button>
+                    </div>
+                    <div style="flex:1;"></div>
+                        <button id="btn-toggle-dark" class="btn-icon" title="Toggle Dark Mode"><i class="bi bi-moon"></i></button>
+                </div>
             </div>
             <!-- Sidebar for Code Bits (Templates) -->
             <div class="sidebar" id="sidebar">
