@@ -29,12 +29,17 @@ body {
 
 /* Sidebar - Code Bits */
 .sidebar {
-    width: 250px;
-    background: #f8f8f8;
-    border-right: 1px solid #d0d0d0;
-    display: flex;
-    flex-direction: column;
-    transition: width 0.3s ease;
+/* Thin vertical sidebar for Code Bits */
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+       background: #f8f8f8;
+       border-right: 1px solid #d0d0d0;
+       display: flex;
+       flex-direction: column;
+       transition: width 0.3s ease;
+       height: 100vh;
+       overflow: hidden;
 }
 
 .sidebar.collapsed {
@@ -59,10 +64,12 @@ body {
 
 /* Template Tree */
 .template-tree {
-    padding: 8px;
-    overflow-y: auto;
-    flex: 1;
-    font-size: 12px;
+/* Scrollable content area inside sidebar */
+       padding: 4px;
+       overflow-y: auto;
+       height: calc(100vh - 40px); /* Adjust for header height */
+       font-size: 12px;
+       box-sizing: border-box;
 }
 
 .template-folder {
