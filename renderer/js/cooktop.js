@@ -277,19 +277,7 @@ class XMLCooktop {
       this.updateStatus("Stylesheet XSL copied to clipboard");
     });
     // Source XML clear button
-    const clearSourceBtn = document.getElementById("btn-clear-source");
-    if (clearSourceBtn) clearSourceBtn.addEventListener("click", () => {
-      const currentValue = this.editors.source.getValue();
-      if (currentValue.trim().length > 0) {
-        if (confirm("Are you sure you want to clear the Source XML pane?")) {
-          this.editors.source.setValue("");
-          this.updateStatus("Source XML pane cleared");
-        }
-      } else {
-        this.editors.source.setValue("");
-        this.updateStatus("Source XML pane cleared");
-      }
-    });
+    // (already declared above)
 
     // Stylesheet clear button
     const clearStylesheetBtn = document.getElementById("btn-clear-stylesheet");
@@ -359,6 +347,42 @@ class XMLCooktop {
     // Stylesheet pane-footer
     const xslOpenBtn = document.querySelector("#pane-stylesheet .pane-footer .btn-icon[title='Open XSL file']");
     if (xslOpenBtn) xslOpenBtn.addEventListener("click", () => this.openFile());
+      // Source XML clear button
+      const clearSourceBtn = document.getElementById("btn-clear-source");
+      if (clearSourceBtn) clearSourceBtn.addEventListener("click", () => {
+        const currentValue = this.editors.source.getValue();
+        if (currentValue.trim().length > 0) {
+          if (confirm("Are you sure you want to clear the Source XML pane?")) {
+            this.editors.source.setValue("");
+            this.updateStatus("Source XML pane cleared");
+          }
+        } else {
+          this.editors.source.setValue("");
+          this.updateStatus("Source XML pane cleared");
+        }
+      });
+
+      // XML dropdown menu logic
+      const xmlDropdownBtn = document.getElementById("btn-xml-dropdown");
+      const xmlDropdownMenu = document.getElementById("xml-dropdown-menu");
+      if (xmlDropdownBtn && xmlDropdownMenu) {
+        xmlDropdownBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          xmlDropdownMenu.style.display = xmlDropdownMenu.style.display === "block" ? "none" : "block";
+        });
+        document.addEventListener("click", (e) => {
+          if (!xmlDropdownMenu.contains(e.target) && e.target !== xmlDropdownBtn) {
+            xmlDropdownMenu.style.display = "none";
+          }
+        });
+        const loadSampleBtn = document.getElementById("btn-load-sample-data");
+        if (loadSampleBtn) {
+          loadSampleBtn.addEventListener("click", () => {
+            this.loadSampleData();
+            xmlDropdownMenu.style.display = "none";
+          });
+        }
+      }
     const xslSaveBtn = document.querySelector("#pane-stylesheet .pane-footer .btn-icon[title='Save XSL']");
     if (xslSaveBtn) xslSaveBtn.addEventListener("click", () => this.saveFile());
 
@@ -464,6 +488,7 @@ class XMLCooktop {
     window.electronAPI.onMenuTransformXSLT(() => this.runXSLT());
     window.electronAPI.onMenuValidateXML(() => this.validateXML());
     window.electronAPI.onMenuFormatXML(() => this.formatCurrentEditor());
+    window.electronAPI.onMenuLoadSampleData(() => this.loadSampleData());
   }
 
   async loadTemplates() {

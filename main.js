@@ -137,6 +137,12 @@ function createMenu() {
           click: () => {
             mainWindow.webContents.send('menu-format-xml');
           }
+        },
+        {
+          label: 'Load Sample Data',
+          click: () => {
+            mainWindow.webContents.send('menu-load-sample-data');
+          }
         }
       ]
     },

@@ -22,6 +22,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   onMenuTransformXSLT: (callback) => ipcRenderer.on('menu-transform-xslt', callback),
   onMenuValidateXML: (callback) => ipcRenderer.on('menu-validate-xml', callback),
   onMenuFormatXML: (callback) => ipcRenderer.on('menu-format-xml', callback),
+  onMenuLoadSampleData: (callback) => ipcRenderer.on('menu-load-sample-data', callback),
   
   // Remove listeners
   removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel)

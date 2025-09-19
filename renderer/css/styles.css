@@ -108,14 +108,13 @@ body {
     transition: width 0.3s ease;
     height: 100vh;
     overflow: hidden;
+}
+
+.panel, .panel-content {
     flex: 1 1 auto;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    min-height: 0;
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
     height: 100%;
 }
 
@@ -170,6 +169,19 @@ body {
     font-size: 12px;
     box-sizing: border-box;
     position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: #bbb #f8f8f8;
+}
+
+.template-tree::-webkit-scrollbar {
+    width: 6px;
+}
+.template-tree::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 3px;
+}
+.template-tree::-webkit-scrollbar-track {
+    background: #f8f8f8;
 }
 
 .template-folder {
