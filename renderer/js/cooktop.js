@@ -143,7 +143,7 @@ class XMLCooktop {
     this.createEditor("result", "xml");
 
     // Set default content
-    this.setDefaultContent();
+  // Removed default content loading to prevent Book example from appearing
 
     // Switch to source pane initially
     this.switchPane("source");
@@ -452,6 +452,27 @@ class XMLCooktop {
     window.electronAPI.onMenuValidateXML(() => this.validateXML());
     window.electronAPI.onMenuFormatXML(() => this.formatCurrentEditor());
     window.electronAPI.onMenuLoadSampleData(() => this.loadSampleData());
+    // Listen for menu-load-example event from main process
+    if (window.electronAPI && window.electronAPI.onMenuLoadExample) {
+      console.log('[DEBUG] Setting up onMenuLoadExample listener');
+      window.electronAPI.onMenuLoadExample(async (event, data) => {
+        console.log('[DEBUG] menu-load-example event received:', data);
+        try {
+          // Use the XML and XSL content directly (already loaded by main process)
+          const xmlContent = data.xml;
+          const xslContent = data.xsl;
+          // Set content in the appropriate panes
+          this.editors.source.setValue(xmlContent);
+          this.editors.stylesheet.setValue(xslContent);
+          // Switch to source pane
+          this.switchPane('source');
+          this.updateStatus(`Loaded example: ${data.name}`);
+        } catch (err) {
+          console.error('[DEBUG] Error loading example:', err);
+          this.showError('Example Load Error', err.message || String(err));
+        }
+      });
+    }
   }
 
   async loadTemplates() {
@@ -844,11 +865,6 @@ class XMLCooktop {
       if (this.currentPane === "result" && wasReadOnly) {
         currentEditor.updateOptions({ readOnly: false });
       }
-      // ...existing code...
-      // Restore read-only state for result pane
-      if (this.currentPane === "result" && wasReadOnly) {
-        currentEditor.updateOptions({ readOnly: true });
-      }
       // Insert template content at current cursor position
       const templateContent = template.content || "";
       const selection = currentEditor.getSelection();
@@ -895,10 +911,16 @@ class XMLCooktop {
   }
 
   loadSampleData() {
-    this.setDefaultContent();
-    this.switchPane("source");
-    this.updateStatus("Sample data loaded");
-  }
+        // Load Book Catalog sample only when user requests
+        this.loadExampleFile('../examples/book-catalog.xml').then(xml => {
+            this.editors.source.setValue(xml);
+        });
+        this.loadExampleFile('../examples/book-catalog.xsl').then(xsl => {
+            this.editors.stylesheet.setValue(xsl);
+        });
+        this.switchPane("source");
+        this.updateStatus("Sample data loaded");
+    }
 
   async openFile() {
     const input = document.createElement("input");
@@ -924,6 +946,33 @@ class XMLCooktop {
       }
     });
     input.click();
+  }
+
+  async openFileByPath(filePath) {
+    try {
+      // Use the Electron API to read the file
+      const result = await window.electronAPI.readFile(filePath);
+      if (result.success) {
+        const extension = filePath.split(".").pop().toLowerCase();
+        const fileName = filePath.split("/").pop() || filePath.split("\\").pop();
+
+        if (extension === "xml") {
+          this.editors.source.setValue(result.content);
+          this.currentFiles.source = fileName;
+          this.switchPane("source");
+        } else if (extension === "xsl" || extension === "xslt") {
+          this.editors.stylesheet.setValue(result.content);
+          this.currentFiles.stylesheet = fileName;
+          this.switchPane("stylesheet");
+        }
+
+        this.updateStatus(`Opened: ${fileName}`);
+      } else {
+        this.showError("File Open Error", result.error);
+      }
+    } catch (error) {
+      this.showError("Error opening file", error.message);
+    }
   }
 
   async saveFile() {

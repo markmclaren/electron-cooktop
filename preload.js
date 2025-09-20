@@ -1,8 +1,15 @@
+
 const { contextBridge, ipcRenderer } = require('electron');
 
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object
 contextBridge.exposeInMainWorld('electronAPI', {
+  onMenuLoadExample: (callback) => ipcRenderer.on('menu-load-example', (event, data) => {
+    console.log('[PRELOAD ] menu-load-example received:', data);
+    callback(event, data);
+  }),
+  // Example file loader
+  loadExampleFile: (filePath) => ipcRenderer.invoke('load-example-file', filePath),
   // File operations
   readFile: (filePath) => ipcRenderer.invoke('read-file', filePath),
   writeFile: (filePath, content) => ipcRenderer.invoke('write-file', filePath, content),

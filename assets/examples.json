@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Book Catalog",
+    "xml": "examples/book-catalog.xml",
+    "xsl": "examples/book-catalog.xsl"
+  },
+  {
+    "name": "CD Catalog - Apply",
+    "xml": "examples/cdcatalog.xml",
+    "xsl": "examples/cdcatalog_apply.xsl"
+  },
+  {
+    "name": "CD Catalog - Choose",
+    "xml": "examples/cdcatalog.xml",
+    "xsl": "examples/cdcatalog_choose.xsl"
+  },
+  {
+    "name": "CD Catalog - Choose 2",
+    "xml": "examples/cdcatalog.xml",
+    "xsl": "examples/cdcatalog_choose2.xsl"
+  },
+  {
+    "name": "CD Catalog - Example 1",
+    "xml": "examples/cdcatalog.xml",
+    "xsl": "examples/cdcatalog_ex1.xsl"
+  },
+  {
+    "name": "CD Catalog - Example 2",
+    "xml": "examples/cdcatalog.xml",
+    "xsl": "examples/cdcatalog_ex2.xsl"
+  },
+  {
+    "name": "CD Catalog - Example 3",
+    "xml": "examples/cdcatalog.xml",
+    "xsl": "examples/cdcatalog_ex3.xsl"
+  },
+  {
+    "name": "CD Catalog - Filter",
+    "xml": "examples/cdcatalog.xml",
+    "xsl": "examples/cdcatalog_filter.xsl"
+  },
+  {
+    "name": "CD Catalog - If",
+    "xml": "examples/cdcatalog.xml",
+    "xsl": "examples/cdcatalog_if.xsl"
+  },
+  {
+    "name": "CD Catalog - Sort",
+    "xml": "examples/cdcatalog.xml",
+    "xsl": "examples/cdcatalog_sort.xsl"
+  }
+]
