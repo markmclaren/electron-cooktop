@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report>
+    <city name="New York" state="NY" population="8400000"/>
+    <city name="Buffalo" state="NY" population="255000"/>
+    <city name="Los Angeles" state="CA" population="3900000"/>
+    <city name="San Francisco" state="CA" population="874000"/>
+    <city name="Chicago" state="IL" population="2700000"/>
+</report>

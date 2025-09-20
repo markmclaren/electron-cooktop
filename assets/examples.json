@@ -48,5 +48,15 @@
     "name": "CD Catalog - Sort",
     "xml": "examples/cdcatalog.xml",
     "xsl": "examples/cdcatalog_sort.xsl"
+  },
+  {
+    "name": "XSLT 2.0 - Grouping and Named",
+    "xml": "examples/cities.xml",
+    "xsl": "examples/transform-2.0.xsl"
+  },
+  {
+    "name": "XSLT 3.0 - Map and Iteration",
+    "xml": "examples/invoice.xml",
+    "xsl": "examples/transform-3.0.xsl"
   }
 ]

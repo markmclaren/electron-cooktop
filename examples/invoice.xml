@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<invoice>
+    <item id="A001" quantity="3"/>
+    <item id="B002" quantity="5"/>
+    <item id="C003" quantity="2"/>
+</invoice>
