@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <book id="1">
+        <title>XML Fundamentals</title>
+        <author>John Doe</author>
+        <price currency="USD">29.99</price>
+        <category>Programming</category>
+    </book>
+    <book id="2">
+        <title>XSLT Mastery</title>
+        <author>Jane Smith</author>
+        <price currency="USD">39.99</price>
+        <category>Programming</category>
+    </book>
+    <book id="3">
+        <title>Web Development</title>
+        <author>Bob Wilson</author>
+        <price currency="USD">34.99</price>
+        <category>Web</category>
+    </book>
+</catalog>

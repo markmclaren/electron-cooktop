@@ -149,6 +149,18 @@ class XMLCooktop {
     this.switchPane("source");
   }
 
+  // Generic async file loader
+  async loadExampleFile(path) {
+    try {
+      const response = await fetch(path);
+      if (!response.ok) throw new Error(`Failed to load ${path}`);
+      return await response.text();
+    } catch (err) {
+      console.error(err);
+      return '';
+    }
+  }
+
   createEditor(paneId, language) {
     const container = document.getElementById(`editor-${paneId}`);
     if (!container) return;
@@ -186,78 +198,13 @@ class XMLCooktop {
   }
 
   setDefaultContent() {
-    // Default XML content
-    const defaultXml = `<?xml version="1.0" encoding="UTF-8"?>
-<catalog>
-    <book id="1">
-        <title>XML Fundamentals</title>
-        <author>John Doe</author>
-        <price currency="USD">29.99</price>
-        <category>Programming</category>
-    </book>
-    <book id="2">
-        <title>XSLT Mastery</title>
-        <author>Jane Smith</author>
-        <price currency="USD">39.99</price>
-        <category>Programming</category>
-    </book>
-    <book id="3">
-        <title>Web Development</title>
-        <author>Bob Wilson</author>
-        <price currency="USD">34.99</price>
-        <category>Web</category>
-    </book>
-</catalog>`;
-
-    // Default XSLT content
-    const defaultXsl = `<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-    <xsl:output method="html" indent="yes"/>
-    
-    <xsl:template match="/">
-        <html>
-            <head>
-                <title>Book Catalog</title>
-                <style>
-                    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9;}
-                    table { border-collapse: collapse; width: 100%; }
-                    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-                    th { background-color: #f2f2f2; }
-                    .price { text-align: right; }
-                </style>
-            </head>
-            <body>
-                <h1>Book Catalog</h1>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                    </tr>
-                    <xsl:for-each select="catalog/book">
-                        <tr>
-                            <td><xsl:value-of select="@id"/></td>
-                            <td><xsl:value-of select="title"/></td>
-                            <td><xsl:value-of select="author"/></td>
-                            <td class="price">$<xsl:value-of select="price"/></td>
-                            <td><xsl:value-of select="category"/></td>
-                        </tr>
-                    </xsl:for-each>
-                </table>
-                <p>Total books: <xsl:value-of select="count(catalog/book)"/></p>
-            </body>
-        </html>
-    </xsl:template>
-</xsl:stylesheet>`;
-
-    this.editors.source.setValue(
-      defaultXml.replace(/\n/g, "\n").replace(/\t/g, "\t")
-    );
-    this.editors.stylesheet.setValue(
-      defaultXsl.replace(/\n/g, "\n").replace(/\t/g, "\t")
-    );
+    // Load XML and XSL from examples folder
+    this.loadExampleFile('../examples/book-catalog.xml').then(xml => {
+      this.editors.source.setValue(xml);
+    });
+    this.loadExampleFile('../examples/book-catalog.xsl').then(xsl => {
+      this.editors.stylesheet.setValue(xsl);
+    });
   }
 
   setupEventListeners() {
