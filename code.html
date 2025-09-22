@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>XSLT Transformer</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .CodeMirror {
+             height: 100% !important;
+             background-color: transparent !important;
+             color: inherit !important;
+             border-radius: 0.5rem;}
+        .cm-s-default .cm-qualifier {
+             color: #1173d4;}
+        .cm-s-default .cm-tag {
+             color: #10b981;
+        }
+        .cm-s-default .cm-attribute {
+             color: #f59e0b;
+        }
+        .cm-s-default .cm-string {
+             color: #a3e635;
+        }
+        .cm-gutters {
+            background-color: transparent !important;
+            border-right: 1px solid rgba(128, 128, 128, 0.2) !important;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex flex-col h-screen">
+<header class="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-700/50">
+<div class="flex items-center gap-3">
+<svg class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M14 2V8H20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M16 13H8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M16 17H8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M10 9H8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<h1 class="text-lg font-bold text-gray-900 dark:text-white">XSLT Transformer</h1>
+</div>
+<button class="bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50">
+                Transform
+            </button>
+</header>
+<main class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-2 p-2 overflow-hidden">
+<div class="flex flex-col gap-2">
+<div class="flex-1 flex flex-col bg-background-light/50 dark:bg-background-dark/50 rounded-lg border border-gray-200 dark:border-gray-700/50">
+<div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700/50">
+<h2 class="font-semibold text-gray-800 dark:text-gray-200">Input XML</h2>
+</div>
+<div class="flex-1 p-1 overflow-auto">
+<textarea class="w-full h-full p-2 bg-transparent resize-none focus:outline-none font-mono text-sm leading-relaxed text-gray-800 dark:text-gray-300" placeholder="Paste your XML here..."></textarea>
+</div>
+</div>
+<div class="flex-1 flex flex-col bg-background-light/50 dark:bg-background-dark/50 rounded-lg border border-gray-200 dark:border-gray-700/50">
+<div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700/50">
+<h2 class="font-semibold text-gray-800 dark:text-gray-200">XSLT Stylesheet</h2>
+</div>
+<div class="flex-1 p-1 overflow-auto">
+<textarea class="w-full h-full p-2 bg-transparent resize-none focus:outline-none font-mono text-sm leading-relaxed text-gray-800 dark:text-gray-300" placeholder="Paste your XSLT here..."></textarea>
+</div>
+</div>
+</div>
+<div class="flex flex-col bg-background-light/50 dark:bg-background-dark/50 rounded-lg border border-gray-200 dark:border-gray-700/50">
+<div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700/50">
+<h2 class="font-semibold text-gray-800 dark:text-gray-200">Transformed XML Output</h2>
+</div>
+<div class="flex-1 p-1 overflow-auto">
+<textarea class="w-full h-full p-2 bg-transparent resize-none focus:outline-none font-mono text-sm leading-relaxed text-gray-800 dark:text-gray-300" placeholder="Output will appear here..." readonly=""></textarea>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
