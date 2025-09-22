@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; script-src 'self' 'unsafe-eval' https://cdnjs.cloudflare.com; connect-src 'self' https://cdnjs.cloudflare.com; font-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data:; worker-src 'self' blob:;"">
     <title>XML Cooktop - Cross-Platform XML Editor</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/editor/editor.main.min.css">
@@ -23,7 +24,7 @@
                         <button id="btn-run-xslt-save" class="btn-icon" title="Run XSLT and save to file"><i class="bi bi-save"></i></button>
                     </div>
                     <div style="flex:1;"></div>
-                        <button id="btn-toggle-dark" class="btn-icon" title="Toggle Dark Mode"><i class="bi bi-moon"></i></button>
+                        <button id="btn-toggle-dark" class="btn-icon" title="Switch to Dark Mode"><i class="bi bi-moon"></i></button>
                 </div>
             </div>
             <!-- Sidebar for Code Bits (Templates) -->
@@ -41,118 +42,68 @@
                 </div>
             </div>
             
-            <!-- Main Content Area - The "Cooktop" -->
+            <!-- Main Content Area - 2-Pane Layout with Stacked Input -->
             <div class="main-content">
-                <!-- Toolbar removed; buttons moved to sidebar -->
-                
-                <!-- Cooktop Panes Container -->
-                <div class="cooktop-container">
-                    <!-- Cooktop Tab Bar -->
-                    <div class="cooktop-tabs" id="cooktop-tabs">
-                        <div class="cooktop-tab active" data-pane="source">
-                            <span class="tab-icon"><i class="bi bi-file-earmark-text"></i></span>
-                            <span class="tab-label">source (xml)</span>
-                        </div>
-                        <div class="cooktop-tab" data-pane="xpath">
-                            <span class="tab-icon"><i class="bi bi-search"></i></span>
-                            <span class="tab-label">xpath console</span>
-                        </div>
-                        <div class="cooktop-tab" data-pane="stylesheet">
-                            <span class="tab-icon"><i class="bi bi-brush"></i></span>
-                            <span class="tab-label">stylesheet(xsl)</span>
-                        </div>
-                        <div class="cooktop-tab" data-pane="result">
-                            <span class="tab-icon"><i class="bi bi-clipboard-data"></i></span>
-                            <span class="tab-label">result</span>
-                        </div>
-                        <div class="cooktop-tab" data-pane="result-html">
-                            <span class="tab-icon"><i class="bi bi-globe"></i></span>
-                            <span class="tab-label">result(html)</span>
-                        </div>
-                    </div>
-
-                    <!-- Cooktop Panes -->
-                    <div class="cooktop-panes" id="cooktop-panes">
-                        
-                        <!-- Source XML Pane -->
-                        <div class="cooktop-pane" id="pane-source" data-pane="source">
-                            <div class="pane-content">
-                                <div id="editor-source" class="monaco-editor-container"></div>
-                            </div>
-                            <div class="pane-footer">
-                                <span class="pane-title">Source XML</span>
+                <div class="pane-layout">
+                    <!-- Left Column: XML and XSLT Inputs (Stacked) -->
+                    <div class="input-column">
+                        <!-- XML Input Pane -->
+                        <div class="editor-pane">
+                            <div class="pane-header">
+                                <span class="pane-title">Input XML</span>
                                 <div class="pane-controls">
-                                    <button class="btn-icon" title="Open XML file"><i class="bi bi-folder2-open"></i></button>
-                                    <button class="btn-icon" title="Save XML"><i class="bi bi-save"></i></button>
-                                    <button class="btn-icon" title="Copy XML" id="btn-copy-source"><i class="bi bi-clipboard"></i></button>
-                                    <button class="btn-icon" title="Clear Source" id="btn-clear-source"><i class="bi bi-trash"></i></button>
+                                    <button id="btn-open-xml" class="btn-icon" title="Open XML file"><i class="bi bi-folder2-open"></i></button>
+                                    <button id="btn-save-xml" class="btn-icon" title="Save XML"><i class="bi bi-save"></i></button>
+                                    <button id="btn-copy-source" class="btn-icon" title="Copy XML"><i class="bi bi-clipboard"></i></button>
+                                    <button id="btn-clear-source" class="btn-icon" title="Clear XML"><i class="bi bi-trash"></i></button>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- XPath Console Pane -->
-                        <div class="cooktop-pane" id="pane-xpath" data-pane="xpath">
                             <div class="pane-content">
-                                <div class="xpath-input-area">
-                                    <input type="text" id="xpath-input" placeholder="Enter XPath expression (e.g., //book[@id='1']/title)" />
-                                    <button id="btn-execute-xpath" class="btn btn-small">Execute</button>
-                                </div>
-                                <div id="xpath-output" class="xpath-output"></div>
-                            </div>
-                            <div class="pane-footer">
-                                <span class="pane-title">XPath Console</span>
-                                <div class="pane-controls">
-                                    <button id="btn-clear-xpath" class="btn-icon" title="Clear console">🗑️</button>
-                                </div>
+                                <div id="editor-xml-input" class="monaco-editor-container"></div>
                             </div>
                         </div>
                         
-                        <!-- Stylesheet XSL Pane -->
-                        <div class="cooktop-pane" id="pane-stylesheet" data-pane="stylesheet">
+                        <!-- XSLT Input Pane -->
+                        <div class="editor-pane">
+                            <div class="pane-header">
+                                <span class="pane-title">XSLT Stylesheet</span>
+                                <div class="pane-controls">
+                                    <button id="btn-open-xslt" class="btn-icon" title="Open XSLT file"><i class="bi bi-folder2-open"></i></button>
+                                    <button id="btn-save-xslt" class="btn-icon" title="Save XSLT"><i class="bi bi-save"></i></button>
+                                    <button id="btn-copy-stylesheet" class="btn-icon" title="Copy XSLT"><i class="bi bi-clipboard"></i></button>
+                                    <button id="btn-clear-stylesheet" class="btn-icon" title="Clear XSLT"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </div>
                             <div class="pane-content">
-                                <div id="editor-stylesheet" class="monaco-editor-container"></div>
-                            </div>
-                            <div class="pane-footer">
-                                <span class="pane-title">Stylesheet (XSL)</span>
-                                <div class="pane-controls">
-                                    <button class="btn-icon" title="Open XSL file"><i class="bi bi-folder2-open"></i></button>
-                                    <button class="btn-icon" title="Save XSL"><i class="bi bi-save"></i></button>
-                                    <button class="btn-icon" title="Copy XSL" id="btn-copy-stylesheet"><i class="bi bi-clipboard"></i></button>
-                                    <button class="btn-icon" title="Clear Stylesheet" id="btn-clear-stylesheet"><i class="bi bi-trash"></i></button>
-                                </div>
+                                <div id="editor-xslt-input" class="monaco-editor-container"></div>
                             </div>
                         </div>
-                        
-                        <!-- Result XML Pane -->
-                        <div class="cooktop-pane" id="pane-result" data-pane="result">
-                            <div class="pane-content">
-                                <div id="editor-result" class="monaco-editor-container"></div>
-                            </div>
-                            <div class="pane-footer">
-                                <span class="pane-title">Result</span>
-                                <div class="pane-controls">
-                                    <button class="btn-icon" title="Save result"><i class="bi bi-save"></i></button>
-                                    <button class="btn-icon" title="Copy result"><i class="bi bi-clipboard"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Result HTML Pane -->
-                        <div class="cooktop-pane" id="pane-result-html" data-pane="result-html">
-                            <div class="pane-content">
-                                <iframe id="html-preview" class="html-preview" sandbox="allow-same-origin"></iframe>
-                            </div>
-                            <div class="pane-footer">
-                                <span class="pane-title">Result (HTML)</span>
-                                <div class="pane-controls">
-                                    <button class="btn-icon" title="Open in browser"><i class="bi bi-box-arrow-up-right"></i></button>
-                                    <button class="btn-icon" title="Save HTML"><i class="bi bi-save"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        
                     </div>
                     
+                    <!-- Right Column: Output -->
+                    <div class="output-column">
+                        <div class="editor-pane">
+                            <div class="pane-header">
+                                <span class="pane-title">Transformed Output</span>
+                                <div class="pane-controls">
+                                    <button id="btn-save-output" class="btn-icon" title="Save output"><i class="bi bi-save"></i></button>
+                                    <button id="btn-copy-output" class="btn-icon" title="Copy output"><i class="bi bi-clipboard"></i></button>
+                                </div>
+                            </div>
+                            <div class="pane-content">
+                                <div id="editor-output" class="monaco-editor-container tab-content active" data-tab="code"></div>
+                                <div id="html-preview" class="html-preview-container tab-content" data-tab="preview"></div>
+                            </div>
+                            <div class="pane-tabs">
+                                <div class="tab active" data-tab="code">
+                                    <span class="tab-label">Code</span>
+                                </div>
+                                <div class="tab" data-tab="preview">
+                                    <span class="tab-label">Preview</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -163,7 +114,6 @@
                 <span id="status-file">Ready</span>
             </div>
             <div class="status-right">
-                <!-- <span id="status-engine">XSLT: JavaScript</span> -->
                 <span id="status-position">Ln 1, Col 1</span>
                 <span id="status-language">XML</span>
             </div>
@@ -222,8 +172,8 @@
     </div>
     
     <!-- Scripts -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
-            <script src="js/xml-formatter-bundle.dist.js"></script>
-            <script src="js/cooktop.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+    <script src="js/xml-formatter-bundle.dist.js"></script>
+    <script src="js/cooktop.js"></script>
 </body>
 </html>
